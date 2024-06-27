@@ -78,3 +78,29 @@
   *{
     @apply transition-colors duration-300;
   }
+
+
+.mdxeditor-toolbar{
+  background-color: black !important;
+  color: white !important;
+}
+
+.mdxeditor-toolbar svg{
+  color: white !important;
+}
+
+.mdxeditor-toolbar button{
+  cursor: pointer !important;
+}
+.mdxeditor-toolbar button:hover{
+  background-color: rgb(87, 87, 87) !important;
+}
+
+
+.mdxeditor-root-contenteditable{
+  border: 1px solid #e2e8f0 !important;
+  height: 100vh !important;
+  margin-top: 4px !important;
+  border-radius: 10px !important;
+
+}

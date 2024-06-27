@@ -5,7 +5,8 @@ import DirectoryTree from '../_components/DirectoryTree';
 import { useRouter } from 'next/navigation';
 import { Checkbox } from "@/components/ui/checkbox"
 import { Label } from "@/components/ui/label"
-import {FlashlightOff, Flashlight} from "lucide-react";
+import {FlashlightOff, Flashlight, StickyNote} from "lucide-react";
+
 type Context = {
   state?: any;
   dispatch?: any;
@@ -13,6 +14,7 @@ type Context = {
 import Video from 'next-video';
 import { Switch } from "@/components/ui/switch"
 import { Button } from "@/components/ui/button"
+import NoteKeeper from '../_components/NoteKeeper';
 
 
 const HomePage = () => {
@@ -25,19 +27,9 @@ const HomePage = () => {
     }, [FILE_SELECTED])
 
   const [selectedVideo, setSelectedVideo] = useState(FILE_SELECTED.length ? FILE_SELECTED[0].url : null);
-  // const videoRef = useRef<HTMLVideoElement | null>(null);
   const [autoNext, setAutoNext] = useState(true);
-  const [autoPlay , setAutoPlay] = useState(true);
-  const [light, setLight] = useState(true);
-
-  // useEffect(() => {
-  //   if (videoRef.current) {
-  //     videoRef.current.load();
-  //     videoRef.current.playbackRate = speed;
-  //     videoRef.current.play();
-
-  //   }
-  // }, [selectedVideo, speed]);
+  const [autoPlay , setAutoPlay] = useState(false);;
+  const [light, setLight] = useState(false);
 
   const filterVideoOnly = (files:any) => {
     let filteredFiles:any = [];
@@ -65,22 +57,6 @@ const HomePage = () => {
     }
   };
 
-  // const handleFastForward = () => {
-  //   if (videoRef.current) {
-  //     videoRef.current.currentTime += 10; // Fast forward 10 seconds
-  //   }
-  // };
-
-  // const handleRewind = () => {
-  //   if (videoRef.current) {
-  //     videoRef.current.currentTime -= 10; // Rewind 10 seconds
-  //   }
-  // };
-
-  // const handleSpeedChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-  //   setSpeed(parseFloat(event.target.value));
-  // };
-
   const toggleAutoNext = () => {
     setAutoNext(!autoNext);
   };
@@ -95,10 +71,6 @@ const HomePage = () => {
   return (
     <div className={` `}>
     <nav className='flex h-[50px] bg-white  border-b border-gray-200 justify-end px-4'>
-      {/* <div className="flex items-center space-x-2">
-        <Switch id="airplane-mode" checked={darkMode} onCheckedChange={toggleDarkMode} />
-        <Label htmlFor="airplane-mode" className='dark:text-white'>Dark Mode</Label>
-      </div> */}
     </nav>
     <div className="min-h-screen flex ">
       {/* Sidebar */}
@@ -108,20 +80,11 @@ const HomePage = () => {
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 p-4 relative z-10 ">
-        <div className="bg-black overflow-hidden shadow-lg relative rounded-tl-lg rounded-tr-lg mt-1 ">
+      <div className="flex-1 p-4  ">
+        <div className="bg-black overflow-hidden shadow-lg relative z-[2] rounded-tl-lg rounded-tr-lg mt-1 ">
           {selectedVideo ? (
             <>
-            {/* <video
-              ref={videoRef}
-              className="w-full h-96"
-              controls
-              onEnded={handleEnded}
-              >
-              <source src={selectedVideo} type="video/mp4" />
-              Your browser does not support the video tag.
-            </video> */}
-              < Video className="w-full h-[500px]" src={selectedVideo} onEnded={handleEnded} autoPlay={autoPlay} />
+              < Video className="w-full h-[500px]" src={selectedVideo} onEnded={handleEnded} autoPlay={autoPlay}  />
               </>
 
 
@@ -133,7 +96,7 @@ const HomePage = () => {
 
         </div>
           {/* Custom Controls */}
-          <div className="p-6 w-full flex justify-between bg-[black] rounded-bl-lg rounded-br-lg border-t  border-gray-200 " >
+          <div className="p-6 w-full flex justify-between relative z-[2] bg-[black] rounded-bl-lg rounded-br-lg border-t  border-gray-200 " >
             <div className="flex items-center space-x-2">
             <div className="flex items-center space-x-2">
               <Checkbox id="terms"  checked={autoPlay} onCheckedChange={toggleAutoPlay} className='bg-[white]' />
@@ -159,7 +122,13 @@ const HomePage = () => {
 
 
             </div>
+
+
+          {/* Note Keeper */}
+          <NoteKeeper />
           </div>
+
+
     </div>
     {
       light &&

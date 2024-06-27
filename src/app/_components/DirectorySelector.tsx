@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { useGlobalContext } from "@/provider/state-manager";
 import { useRouter } from 'next/navigation';
-
+import {Loader2} from "lucide-react";
 type Context = {
   state?: any;
   dispatch?: any;
@@ -13,11 +13,13 @@ type Context = {
 const DirectorySelector = ({ setFiles }: { setFiles: (files: Array<any>) => void }) => {
   const router = useRouter();
   const { dispatch }: Context = useGlobalContext();
-
+  const [loading, setLoading] = useState(false);
   const collectFiles = async (directory: FileSystemDirectoryHandle) => {
     const files: Array<any> = [];
+    setLoading(true);
     for await (const entry of directory.values()) {
-      if (entry.kind === 'file') {
+      console.log(entry);
+      if (entry.kind === 'file' && entry.name.endsWith('.mp4')) {
         const fileHandle = entry as FileSystemFileHandle;
         const file = await fileHandle.getFile();
         const url = URL.createObjectURL(file);
@@ -28,6 +30,8 @@ const DirectorySelector = ({ setFiles }: { setFiles: (files: Array<any>) => void
         files.push({ name: subdirectoryHandle.name, kind: 'directory', files: subdirectoryFiles });
       }
     }
+
+    setLoading(false);
     return files;
   };
 
@@ -45,7 +49,7 @@ const DirectorySelector = ({ setFiles }: { setFiles: (files: Array<any>) => void
 
   return (
     <div>
-      <Button onClick={handleBrowse}>Browse Directory</Button>
+      <Button onClick={handleBrowse}>{loading ? <Loader2 className="animate-spin" /> : 'Select Directory'}</Button>
     </div>
   );
 };
