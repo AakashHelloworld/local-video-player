@@ -1,142 +1,112 @@
 "use client";
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useGlobalContext } from "@/provider/state-manager";
-import DirectoryTree from '../_components/DirectoryTree';
+import DirectoryTree from './_componenets/DirectoryTree';
 import { useRouter } from 'next/navigation';
-import { Checkbox } from "@/components/ui/checkbox"
-import { Label } from "@/components/ui/label"
-import {FlashlightOff, Flashlight, StickyNote} from "lucide-react";
-
+import Navbar from './_componenets/Navbar';
 type Context = {
   state?: any;
   dispatch?: any;
 };
-import Video from 'next-video';
-import { Switch } from "@/components/ui/switch"
-import { Button } from "@/components/ui/button"
-import NoteKeeper from '../_components/NoteKeeper';
+import NoteKeeper from './_componenets/NoteKeeper';
+import ControlVid from './_componenets/ControlVid';
+import VidPlayer from './_componenets/VidPlayer';
 
 
 const HomePage = () => {
   const router = useRouter()
-  const { state }: Context = useGlobalContext();
+  const { state, dispatch }: Context = useGlobalContext();
   const FILE_SELECTED = state.file || [];
+  const VIDEOLIST = state.videosList || [];
+  const subtitles = state.subtitle || [];
+  const directory = state.directory
 
     useEffect(()=>{
           if(FILE_SELECTED?.length == 0) router.push("/")
     }, [FILE_SELECTED])
 
-  const [selectedVideo, setSelectedVideo] = useState(FILE_SELECTED.length ? FILE_SELECTED[0].url : null);
+  const [selectedVideo, setSelectedVideo] = useState(FILE_SELECTED.length ? {
+    name : FILE_SELECTED[0].name,
+    url:FILE_SELECTED[0].url} : null);
   const [autoNext, setAutoNext] = useState(true);
   const [autoPlay , setAutoPlay] = useState(false);;
   const [light, setLight] = useState(false);
 
-  const filterVideoOnly = (files:any) => {
-    let filteredFiles:any = [];
-  
-    files.forEach((item:any) => {
-      if (item.kind === 'file') {
-        filteredFiles.push(item);
-      } else if (item.kind === 'directory' && item.files) {
-        const nestedFilteredFiles = filterVideoOnly(item.files);
-        filteredFiles = filteredFiles.concat(nestedFilteredFiles);
-      }
-    });
-  
-    return filteredFiles;
-  };
 
-  const handleEnded = () => {
+  const handleEnded = async() => {
     if (autoNext) {
-      const filteredVideos = filterVideoOnly(FILE_SELECTED);
-      const currentIndex = filteredVideos.findIndex((video: any) => video.url === selectedVideo);
+
+      const currentIndex = VIDEOLIST.findIndex((video: any) => video.name === selectedVideo?.name);
+      let filterVideo = VIDEOLIST.filter((video:any)=> video.name == selectedVideo?.name)
+      const AllvideoAccept = VIDEOLIST.filter((video:any)=> video.name != selectedVideo?.name)
+      filterVideo[0].completion = "Yes"
+      const AllVideoNow =[...AllvideoAccept, ...filterVideo]
+      console.log(AllVideoNow)
+      dispatch({ type: 'VIDEO_ENDED_COMPLETION', payload: AllVideoNow });
+      const totalFiles = {
+        files: FILE_SELECTED,
+        subTitles: subtitles,
+        videosList: AllVideoNow
+      }
+     // Write the updated videos list to video.json
+    if (directory) {
+      try {
+        const videoFileHandle = await directory.getFileHandle('video.json');
+        const writableStream = await videoFileHandle.createWritable();
+        await writableStream.write(JSON.stringify(totalFiles, null, 2));
+        await writableStream.close();
+      } catch (error) {
+        console.error('Failed to write to video.json:', error);
+      }
+    }
+
       
-      if (currentIndex >= 0 && currentIndex < filteredVideos.length - 1) {
-        setSelectedVideo(filteredVideos[currentIndex + 1].url);
+      if (currentIndex >= 0 && currentIndex < VIDEOLIST.length - 1) {
+        setSelectedVideo({
+          name:VIDEOLIST[currentIndex + 1].name,
+          url:VIDEOLIST[currentIndex + 1].url});
       }
     }
   };
 
-  const toggleAutoNext = () => {
-    setAutoNext(!autoNext);
-  };
 
-  const toggleAutoPlay = () => {
-    setAutoPlay(!autoPlay);
-  };
-  const toggleLight = () => {
-    setLight(!light);
-  };
 
   return (
-    <div className={` `}>
-    <nav className='flex h-[50px] bg-white  border-b border-gray-200 justify-end px-4'>
-    </nav>
-    <div className="min-h-screen flex ">
-      {/* Sidebar */}
-      <div className="w-[300px] shadow-lg  overflow-x-hidden overflow-y-auto ">
-        <h2 className="text-xl font-bold mb-6 ml-[1rem] dark:text-white">Video Content</h2>
-        <DirectoryTree files={FILE_SELECTED} onVideoSelect={setSelectedVideo} selectedVideo={selectedVideo} />
-      </div>
+    < >
+      <Navbar />
+      <div className="min-h-screen flex ">
 
-      {/* Main Content */}
-      <div className="flex-1 p-4  ">
-        <div className="bg-black overflow-hidden shadow-lg relative z-[2] rounded-tl-lg rounded-tr-lg mt-1 ">
-          {selectedVideo ? (
-            <>
-              < Video className="w-full h-[500px]" src={selectedVideo} onEnded={handleEnded} autoPlay={autoPlay}  />
-              </>
-
-
-          ) : (
-            <p>Please select a video from the course content.</p>
-          )}
-
-
-
+        {/* Sidebar */}
+        <div className="w-[300px] shadow-lg  overflow-x-hidden overflow-y-auto ">
+          <h2 className="text-xl font-bold mb-6 ml-[1rem] dark:text-white">Local Directory Viewer</h2>
+          <DirectoryTree files={FILE_SELECTED} onVideoSelect={(url :any)=>{
+            setSelectedVideo({
+              name : VIDEOLIST.find((video: any) => video.url === url)?.name,
+              url:url
+            })}} selectedVideo={selectedVideo} />
         </div>
-          {/* Custom Controls */}
-          <div className="p-6 w-full flex justify-between relative z-[2] bg-[black] rounded-bl-lg rounded-br-lg border-t  border-gray-200 " >
-            <div className="flex items-center space-x-2">
-            <div className="flex items-center space-x-2">
-              <Checkbox id="terms"  checked={autoPlay} onCheckedChange={toggleAutoPlay} className='bg-[white]' />
-              <Label htmlFor="terms" className='text-[white]'>Auto Play</Label>
-            </div>
-            <div className="flex items-center space-x-2">
-              <Checkbox id="terms"  checked={autoNext} onCheckedChange={toggleAutoNext} className='bg-[white]' />
-              <Label htmlFor="terms" className='text-[white]'>Auto Next</Label>
-            </div>     
-            </div>
 
-            <div>
-            <div className="flex items-center space-x-2" >
-              <Button className='bg-black hover:bg-[black]  flex items-center space-x-2' onClick={toggleLight}>
-                {
-                  light ?  <Flashlight color='orange' className='w-5 h-5' /> :<FlashlightOff color='white' className='w-5 h-5' />
-                } 
-                              <Label htmlFor="terms" className='text-[white]'>Light</Label>
+        {/* Main Content */}
+        <div className="flex-1 p-4  ">
 
-              </Button>
-            </div>  
-            </div>
+          <VidPlayer selectedVideo={selectedVideo} handleEnded={handleEnded} autoPlay={autoPlay}/>
+            
+          <ControlVid light={light} autoPlay={autoPlay} autoNext={autoNext} toggleAutoNext={()=>{
+            setAutoNext(!autoNext)
+          }} toggleAutoPlay={()=>{setAutoPlay(!autoPlay)}} toggleLight={()=>{setLight(!light)}} />
 
-
-            </div>
-
-
-          {/* Note Keeper */}
           <NoteKeeper />
-          </div>
+            
+        </div>
 
 
-    </div>
-    {
-      light &&
-    <div className='fixed bottom-0 left-0 right-0 w-full h-screen bg-[black] opacity-95 z-8' onClick={toggleLight}>
-    </div>
-    }
-
-    </div>
+      </div>
+      {
+        light &&
+      <div className='fixed bottom-0 left-0 right-0 w-full h-screen bg-[black] opacity-95 z-8' onClick={()=>{setLight(false)}}>
+      </div>
+      }
+    </>
   );
 };
 

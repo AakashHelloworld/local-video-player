@@ -5,10 +5,17 @@ import reducer from './reducer';
 const AppContext = createContext({});
 
 interface InitialState {
-  file: any;}
+  directory: any;
+  file: any;
+  subtitle: any;
+  videosList:any;
+}
 
 const initialState: InitialState = {
   file: null,
+  subtitle: null,
+  videosList:null,
+  directory: null
 };
 
 const AppProvider = ({ children }: { children: React.ReactNode }) => {
