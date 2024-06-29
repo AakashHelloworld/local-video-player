@@ -17,7 +17,6 @@ const DirectorySelector = ({ setFiles }: { setFiles: (files: Array<any>) => void
 
   const collectFiles = async (directory: FileSystemDirectoryHandle, videosList: Array<any> = [], subtitles: Array<any> = []) => {
     const files: Array<any> = [];
-
     for await (const entry of directory.values()) {
       if (entry.kind === 'file' && entry.name.endsWith('.mp4')) {
         const fileHandle = entry as FileSystemFileHandle;
@@ -38,9 +37,12 @@ const DirectorySelector = ({ setFiles }: { setFiles: (files: Array<any>) => void
         files.push({ name: subdirectoryHandle.name, kind: 'directory', files: subdirectoryFiles });
       }
     }
-
     return files;
   };
+
+
+
+  
 
   const checkJSONFileAlready = async (directory: FileSystemDirectoryHandle) => {
     let jsonFileExists = false;
@@ -51,7 +53,11 @@ const DirectorySelector = ({ setFiles }: { setFiles: (files: Array<any>) => void
         const fileHandle = entry as FileSystemFileHandle;
         const file = await fileHandle.getFile();
         const fileContent = await file.text();
+
+
         const jsonData = JSON.parse(fileContent);
+
+
         dispatch({ type: 'FILE_SELECTED_JSON', payload: { ...jsonData, directory: directory } });
         router.push('/Player');
       }
