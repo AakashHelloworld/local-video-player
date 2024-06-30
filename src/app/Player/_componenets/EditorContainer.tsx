@@ -13,7 +13,7 @@ import { Bold, Italic, Underline,AlignLeft, AlignCenter, AlignRight, List, ListO
 import TextAlign from '@tiptap/extension-text-align'
 import FontFamily from '@tiptap/extension-font-family'
 import CharacterCount from '@tiptap/extension-character-count'
-import { Loader2 } from "lucide-react"
+import { Loader2 , Save} from "lucide-react"
 import jsPDF from 'jspdf'
 import {
   Select,
@@ -29,6 +29,24 @@ import {
 } from "@/components/ui/popover"
 import { Button } from "@/components/ui/button"
 import html2canvas from 'html2canvas'
+
+
+const Footer = () => {
+  const { editor } = useCurrentEditor()
+
+  if (!editor) {
+    return null
+  } 
+
+  return (
+    <div className="flex w-full justify-end gap-2 items-center  border-t border-slate-200">
+      <p><span className="font-bold">{editor.storage.characterCount.characters()}</span> characters</p>
+      <p><span className="font-bold">{editor.storage.characterCount.words()}</span> words</p>
+    </div>
+  )
+}
+
+
 
 const MenuBar = ({ editorContent }: { editorContent: string }) => {
   const [onColorOpen, setOnColorOpen] = useState(false);
@@ -117,15 +135,14 @@ const MenuBar = ({ editorContent }: { editorContent: string }) => {
           <Redo2Icon className="w-4"  />
         </Toggle>
         </div>
-        <div className="flex gap-2 items-center">
-        <div>
-        <p className="text-sm"><span className="font-bold ">{editor.storage.characterCount.characters()}</span> characters </p>
-        <p className="text-sm"><span className="font-bold ">{editor.storage.characterCount.words()}</span> words</p>
-        </div>
+        <div className="flex gap-2 items-center">         
 
         <Button onClick={downloadPdf} >{loading ? <Loader2 className="w-4 animate-spin" /> :<span className="flex items-center gap-2"><FileText className="w-4" />  Download PDF</span>}</Button>
+
+
+        <Button className="flex items-center gap-2 bg-[#fff] text-[#000] hover:bg-[#f2f2f2] hover:text-[#000] border border-[black]"> <Save className="w-4" />Save</Button>
       </div>
-        </div>
+      </div>
 
       <div className="flex gap-2 justify-center flex-wrap mb-4 border-b-2 pb-1">
         <Toggle
@@ -361,7 +378,7 @@ export default function EditorContainer () {
           console.log(editor.editor.getHTML())
           setHtml(editor.editor.getHTML())
           
-        }} slotBefore={<MenuBar editorContent={html} />} extensions={extensions} content={content}>
+        }} slotAfter={<Footer/>} slotBefore={<MenuBar editorContent={html} />} extensions={extensions} content={content}>
         {/* <div id="editor-content" className="p-[3rem] hidden" dangerouslySetInnerHTML={{ __html: html }}></div> */}
         </EditorProvider>
     </div>

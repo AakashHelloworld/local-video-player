@@ -33,7 +33,7 @@ export default function NoteKeeper({selectedVideo, arrowUp, setArrowUp}:any) {
 
       { isNoteOpen && 
       
-        <div className="flex flex-col items-center border w-full justify-end" >
+        <div className="flex flex-col items-center border rounded w-full justify-end" >
           <div className='w-full flex justify-end px-4 py-2'>
             {
               arrowUp ? <ChevronsDown onClick={() => setArrowUp(!arrowUp)} className='w-6 cursor-pointer'/>:
