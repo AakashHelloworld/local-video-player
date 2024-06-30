@@ -41,8 +41,31 @@ const DirectorySelector = ({ setFiles }: { setFiles: (files: Array<any>) => void
   };
 
 
-
+  const regenerateURL = async ({ directory, jsonData }: any) => {
+    for await (const entry of directory.values()) {
+      if (entry.kind === 'file' && entry.name.endsWith('.mp4')) {
+        const fileHandle = entry as FileSystemFileHandle;
+        const file = await fileHandle.getFile();
+        const url = URL.createObjectURL(file);
   
+        jsonData.videosList = jsonData.videosList.map((data: any) => {
+          if (data.name === entry.name) {
+            console.log(data.name)
+            return { ...data, url };
+          }
+          return data; // Return the data as it is if it doesn't match the entry name
+        });
+
+      console.log(jsonData.videosList)
+      } else if (entry.kind === 'directory') {
+        const subdirectoryHandle = entry as FileSystemDirectoryHandle;
+        await regenerateURL({ directory: subdirectoryHandle, jsonData });
+      }
+    }
+    return jsonData;
+  };
+  
+
 
   const checkJSONFileAlready = async (directory: FileSystemDirectoryHandle) => {
     let jsonFileExists = false;
@@ -54,8 +77,10 @@ const DirectorySelector = ({ setFiles }: { setFiles: (files: Array<any>) => void
         const file = await fileHandle.getFile();
         const fileContent = await file.text();
 
-
-        const jsonData = JSON.parse(fileContent);
+        let jsonData = await JSON.parse(fileContent);
+        console.log(jsonData.videosList)
+        if(jsonData?.videosList?.[0].name) await regenerateURL({directory, jsonData: jsonData})
+        console.log(jsonData)
 
 
         dispatch({ type: 'FILE_SELECTED_JSON', payload: { ...jsonData, directory: directory } });

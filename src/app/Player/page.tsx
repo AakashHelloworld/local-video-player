@@ -33,41 +33,90 @@ const HomePage = () => {
   const [light, setLight] = useState(false);
 
 
-  const handleEnded = async() => {
-    if (autoNext) {
+  // const handleEnded = async() => {
+  //   if (autoNext) {
 
+  //     const currentIndex = VIDEOLIST.findIndex((video: any) => video.name === selectedVideo?.name);
+  //     let filterVideo = VIDEOLIST.filter((video:any)=> video.name == selectedVideo?.name)
+  //     const AllvideoAccept = VIDEOLIST.filter((video:any)=> video.name != selectedVideo?.name)
+  //     filterVideo[0].completion = "Yes"
+  //     const AllVideoNow =[...AllvideoAccept, ...filterVideo]
+  //     console.log(AllVideoNow)
+  //     dispatch({ type: 'VIDEO_ENDED_COMPLETION', payload: AllVideoNow });
+  //     const totalFiles = {
+  //       files: FILE_SELECTED,
+  //       subTitles: subtitles,
+  //       videosList: AllVideoNow
+  //     }
+  //    // Write the updated videos list to video.json
+  //   if (directory) {
+  //     try {
+  //       const videoFileHandle = await directory.getFileHandle('video.json');
+  //       const writableStream = await videoFileHandle.createWritable();
+  //       await writableStream.write(JSON.stringify(totalFiles, null, 2));
+  //       await writableStream.close();
+  //     } catch (error) {
+  //       console.error('Failed to write to video.json:', error);
+  //     }
+  //   }
+
+      
+  //     if (currentIndex >= 0 && currentIndex < VIDEOLIST.length - 1) {
+  //       setSelectedVideo({
+  //         name:VIDEOLIST[currentIndex + 1].name,
+  //         url:VIDEOLIST[currentIndex + 1].url});
+  //     }
+  //   }
+  // };
+
+  const handleEnded = async () => {
+    if (autoNext) {
+      // Find the current video index in the original VIDEOLIST
       const currentIndex = VIDEOLIST.findIndex((video: any) => video.name === selectedVideo?.name);
-      let filterVideo = VIDEOLIST.filter((video:any)=> video.name == selectedVideo?.name)
-      const AllvideoAccept = VIDEOLIST.filter((video:any)=> video.name != selectedVideo?.name)
-      filterVideo[0].completion = "Yes"
-      const AllVideoNow =[...AllvideoAccept, ...filterVideo]
-      console.log(AllVideoNow)
-      dispatch({ type: 'VIDEO_ENDED_COMPLETION', payload: AllVideoNow });
+      
+      // Mark the current video as completed
+      const updatedVideosList = VIDEOLIST.map((video: any) => {
+        if (video.name === selectedVideo?.name) {
+          return { ...video, completion: 'Yes' };
+        }
+        return video;
+      });
+  
+      // Update the state with the new videos list
+      dispatch({ type: 'VIDEO_ENDED_COMPLETION', payload: updatedVideosList });
+  
+      // Create the totalFiles object to be written to video.json
       const totalFiles = {
         files: FILE_SELECTED,
         subTitles: subtitles,
-        videosList: AllVideoNow
+        videosList: updatedVideosList,
+      };
+  
+      // Write the updated videos list to video.json
+      if (directory) {
+        try {
+          const videoFileHandle = await directory.getFileHandle('video.json');
+          const writableStream = await videoFileHandle.createWritable();
+          await writableStream.write(JSON.stringify(totalFiles, null, 2));
+          await writableStream.close();
+        } catch (error) {
+          console.error('Failed to write to video.json:', error);
+        }
       }
-     // Write the updated videos list to video.json
-    if (directory) {
-      try {
-        const videoFileHandle = await directory.getFileHandle('video.json');
-        const writableStream = await videoFileHandle.createWritable();
-        await writableStream.write(JSON.stringify(totalFiles, null, 2));
-        await writableStream.close();
-      } catch (error) {
-        console.error('Failed to write to video.json:', error);
-      }
-    }
-
-      
-      if (currentIndex >= 0 && currentIndex < VIDEOLIST.length - 1) {
-        setSelectedVideo({
-          name:VIDEOLIST[currentIndex + 1].name,
-          url:VIDEOLIST[currentIndex + 1].url});
+  
+      // Determine the next video to play
+      if (currentIndex >= 0 && currentIndex < updatedVideosList.length - 1) {
+        const nextVideoIndex = updatedVideosList.findIndex((video: any) => video.name === VIDEOLIST[currentIndex + 1].name);
+        if (nextVideoIndex >= 0) {
+          setSelectedVideo({
+            name: updatedVideosList[nextVideoIndex].name,
+            url: updatedVideosList[nextVideoIndex].url,
+          });
+        }
       }
     }
   };
+  
 
 
 
