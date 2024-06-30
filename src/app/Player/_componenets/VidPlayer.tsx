@@ -18,7 +18,7 @@ export default function VidPlayer({selectedVideo, autoPlay, handleEnded}:any) {
                     VIDEOLIST?.map((video :any)=>{
                         if(video?.name == selectedVideo?.name){
                           return (
-                          < Video key={video.name} className="w-full h-[500px]" src={video?.url} onEnded={handleEnded} autoPlay={autoPlay}  >
+                          < Video accentColor="#94a3b8" key={video.name} className="w-full h-[500px]" src={video?.url} onEnded={handleEnded} autoPlay={autoPlay}  >
 
                           { !!Subtitles?.length &&
                             Subtitles?.map((data)=>{

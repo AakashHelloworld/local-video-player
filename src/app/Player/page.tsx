@@ -14,12 +14,14 @@ import VidPlayer from './_componenets/VidPlayer';
 
 
 const HomePage = () => {
+
   const router = useRouter()
   const { state, dispatch }: Context = useGlobalContext();
   const FILE_SELECTED = state.file || [];
   const VIDEOLIST = state.videosList || [];
   const subtitles = state.subtitle || [];
   const directory = state.directory
+  const [arrowUp, setArrowUp] = useState(false);
 
     useEffect(()=>{
           if(FILE_SELECTED?.length == 0) router.push("/")
@@ -137,14 +139,18 @@ const HomePage = () => {
 
         {/* Main Content */}
         <div className="flex-1 p-4  ">
-
+          {
+            !arrowUp &&
+            <>
           <VidPlayer selectedVideo={selectedVideo} handleEnded={handleEnded} autoPlay={autoPlay}/>
             
           <ControlVid light={light} autoPlay={autoPlay} autoNext={autoNext} toggleAutoNext={()=>{
             setAutoNext(!autoNext)
           }} toggleAutoPlay={()=>{setAutoPlay(!autoPlay)}} toggleLight={()=>{setLight(!light)}} />
+          </>
+          }
 
-          <NoteKeeper />
+          <NoteKeeper arrowUp={arrowUp} setArrowUp={setArrowUp} selectedVideo={selectedVideo as any} />
             
         </div>
 

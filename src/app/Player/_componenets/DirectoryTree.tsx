@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { File, FileVideo } from 'lucide-react';
 import { useGlobalContext } from "@/provider/state-manager";
-import { Check } from 'lucide-react';
+import { BadgeCheck , Folder, FolderOpen } from 'lucide-react';
 type Context = {
   state?: any;
   dispatch?: any;
@@ -49,7 +49,7 @@ const FileOrDirectory = ({ file, onVideoSelect, depth,selectedVideo, VIDEOLIST }
             {
               !!VIDEOLIST?.length && VIDEOLIST.map((video: any) => {
                  if(video.name == file.name && video.completion == "Yes") {
-                   return <Check key={video.name} className='w-4 h-4' color='blue' />
+                   return <BadgeCheck key={video.name} className='w-4 h-4' color='#0284c7' />
     
                  }
               })
@@ -78,7 +78,10 @@ const FileOrDirectory = ({ file, onVideoSelect, depth,selectedVideo, VIDEOLIST }
           className={`text-left w-full text-gray-700 hover:text-gray-900 focus:outline-none py-2 px-4 rounded transition-colors duration-200 flex items-center gap-2 ml-${depth * 2}`}
           onClick={() => setIsOpen(!isOpen)}
         >
-          <File color='orange' />{file?.name?.length > 20 ? file.name.slice(0, 20) + '...' : file.name}
+
+          {
+            isOpen ? <FolderOpen color='orange' /> : <Folder color='orange' />
+          }{file?.name?.length > 20 ? file.name.slice(0, 20) + '...' : file.name}
         </button>
         {isOpen && file?.files && (
           <DirectoryTree files={file.files} onVideoSelect={onVideoSelect} depth={depth + 2} />
