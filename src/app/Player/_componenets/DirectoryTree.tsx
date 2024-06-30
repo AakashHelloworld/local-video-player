@@ -41,13 +41,15 @@ const FileOrDirectory = ({ file, onVideoSelect, depth,selectedVideo, VIDEOLIST }
            if(video.name == file.name) {
             return (
             <button
+
+            key={video.name}
               className="text-left w-full text-gray-700 hover:text-gray-900 focus:outline-none py-2 px-4 rounded transition-colors duration-200 flex items-center gap-2"
               onClick={() => onVideoSelect(video.url)}
             >
             {
               !!VIDEOLIST?.length && VIDEOLIST.map((video: any) => {
                  if(video.name == file.name && video.completion == "Yes") {
-                   return <Check className='w-4 h-4' color='blue' />
+                   return <Check key={video.name} className='w-4 h-4' color='blue' />
     
                  }
               })
