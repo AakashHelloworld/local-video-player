@@ -49,13 +49,13 @@ const FileOrDirectory = ({ file, onVideoSelect, depth,selectedVideo, VIDEOLIST }
             {
               !!VIDEOLIST?.length && VIDEOLIST.map((video: any) => {
                  if(video.name == file.name && video.completion == "Yes") {
-                   return <BadgeCheck key={video.name} className='w-4 h-4' color='#0284c7' />
+                   return <BadgeCheck key={video.name} className='w-4 h-4'  color='#0284c7' />
     
                  }
               })
     
             }
-              <FileVideo color='red' />
+              <FileVideo color='red' className='w-4 h-4' />
              {file?.name?.length > 20 ? file.name.slice(0, 20) + '...' : file.name}
             </button>
             )
@@ -80,7 +80,7 @@ const FileOrDirectory = ({ file, onVideoSelect, depth,selectedVideo, VIDEOLIST }
         >
 
           {
-            isOpen ? <FolderOpen color='orange' /> : <Folder color='orange' />
+            isOpen ? <FolderOpen color='orange' className='w-4 h-4' /> : <Folder color='orange' className='w-4 h-4' />
           }{file?.name?.length > 20 ? file.name.slice(0, 20) + '...' : file.name}
         </button>
         {isOpen && file?.files && (
