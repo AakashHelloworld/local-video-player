@@ -23,7 +23,7 @@ const DirectorySelector = ({ setFiles }: { setFiles: (files: Array<any>) => void
         const file = await fileHandle.getFile();
         const url = URL.createObjectURL(file);
         files.push({ id: Math.random(), name: fileHandle.name, kind: 'file' });
-        videosList.push({ id: Math.random(), name: fileHandle.name, url, kind: 'file', content: '', completion: 'No' });
+        videosList.push({ id: Math.random(), name: fileHandle.name, url, kind: 'file', content: '<h1>Hey there, How are you?</h1>', completion: 'No' });
 
       } else if (entry.kind === 'file' && entry.name.endsWith('.srt')) {
         const fileHandle = entry as FileSystemFileHandle;

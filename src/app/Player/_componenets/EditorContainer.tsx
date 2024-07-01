@@ -1,19 +1,21 @@
 "use client"
 import "../../style.css"
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { Color } from '@tiptap/extension-color'
 import ListItem from '@tiptap/extension-list-item'
 import TextStyle from '@tiptap/extension-text-style'
-import { Editor, EditorProvider, useCurrentEditor } from '@tiptap/react'
+import {  useEditor,EditorContent } from '@tiptap/react'
 import Highlight from '@tiptap/extension-highlight'
 import StarterKit from '@tiptap/starter-kit'
 import { Toggle } from "@/components/ui/toggle"
 import { HexColorPicker } from "react-colorful";
-import { Bold, Italic, Underline,AlignLeft, AlignCenter, AlignRight, List, ListOrdered, Code2, MessageSquareQuote, Minus, Undo2Icon, Redo2Icon, WrapText, Highlighter, Paintbrush, FileText} from "lucide-react"
+import { Bold, Italic, Underline, AlignLeft, AlignCenter, AlignRight, List, ListOrdered, Code2, MessageSquareQuote, Minus, Undo2Icon, Redo2Icon, WrapText, Highlighter, Paintbrush, FileText } from "lucide-react"
+import { ChevronsDown ,ChevronsUp } from 'lucide-react';
+
 import TextAlign from '@tiptap/extension-text-align'
 import FontFamily from '@tiptap/extension-font-family'
 import CharacterCount from '@tiptap/extension-character-count'
-import { Loader2 , Save} from "lucide-react"
+import { Loader2, Save } from "lucide-react"
 import jsPDF from 'jspdf'
 import {
   Select,
@@ -29,37 +31,40 @@ import {
 } from "@/components/ui/popover"
 import { Button } from "@/components/ui/button"
 import html2canvas from 'html2canvas'
+import { useGlobalContext } from "@/provider/state-manager";
 
+type Context = {
+  state?: any;
+  dispatch?: any;
+};
 
-const Footer = () => {
-  const { editor } = useCurrentEditor()
+const Footer = ({editor}:any) => {
 
   if (!editor) {
     return null
-  } 
+  }
 
   return (
-    <div className="flex w-full justify-end gap-2 items-center  border-t border-slate-200">
+    <div className="flex w-full justify-end gap-2 items-center border-t border-slate-200">
       <p><span className="font-bold">{editor.storage.characterCount.characters()}</span> characters</p>
       <p><span className="font-bold">{editor.storage.characterCount.words()}</span> words</p>
     </div>
   )
 }
 
-
-
-const MenuBar = ({ editorContent }: { editorContent: string }) => {
+const MenuBar = ({ html, directory, stateChange, setStateChange, selectedContent, editor,setArrowUp, arrowUp }: { html: string, directory: any, stateChange: boolean, setStateChange: any, selectedContent: any, editor:any, setArrowUp:any, arrowUp:any}) => {
+  const { state, dispatch }: Context = useGlobalContext();
+  const FILE_SELECTED = state.file || [];
+  const VIDEOLIST = state.videosList || [];
+  const subtitles = state.subtitle || [];
   const [onColorOpen, setOnColorOpen] = useState(false);
   const [onHighlightOpen, setOnHighlightOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-  const { editor } = useCurrentEditor()
-  // console.log(editor)
   const [color, setColor] = useState("#000000");
   const [highlight, setHighlight] = useState("#000000");
 
-
   if (!editor) {
-    return null
+    return <h1>Loading...</h1>
   }
 
   const downloadPdf = () => {
@@ -101,15 +106,59 @@ const MenuBar = ({ editorContent }: { editorContent: string }) => {
       setLoading(false);
     });
     setLoading(false);
-  };;
+  };
 
+  const saveContext = async () => {
+    const updatedVideosList = VIDEOLIST.map((video: any) => {
+      if (video.name === selectedContent?.name) {
+        return { ...video, content: html };
+      }
+      return video;
+    });
+
+    dispatch({ type: 'VIDEO_ENDED_COMPLETION', payload: updatedVideosList });
+
+    const totalFiles = {
+      files: FILE_SELECTED,
+      subTitles: subtitles,
+      videosList: updatedVideosList,
+    };
+
+    if (directory) {
+      try {
+        const videoFileHandle = await directory.getFileHandle('video.json');
+        const writableStream = await videoFileHandle.createWritable();
+        await writableStream.write(JSON.stringify(totalFiles, null, 2));
+        await writableStream.close();
+      } catch (error) {
+        console.error('Failed to write to video.json:', error);
+      }
+    }
+    setStateChange(false)
+  }
 
   return (
     <div className="flex items-center flex-col justify-center w-full">
-      <div className="w-full flex justify-end">
-      </div>
-      <div className={`w-full flex justify-between`}>
-        <div>
+      <div className="w-[100%] flex justify-between gap-2 items-center">     
+        <div className="flex gap-2 items-center">
+                {
+              arrowUp ? 
+              <Button onClick={() => setArrowUp(!arrowUp)}>
+              <ChevronsDown onClick={() => setArrowUp(!arrowUp)} className='w-4 cursor-pointer'/>
+              </Button>
+              :
+              <Button onClick={() => setArrowUp(!arrowUp)} >
+            <ChevronsUp className='w-4 cursor-pointer'/> </Button>
+           }    
+           </div>
+<div className="flex gap-2 justify-end">
+<Button onClick={downloadPdf} >{loading ? <Loader2 className="w-4 animate-spin" /> :<span className="flex items-center gap-2"><FileText className="w-4" />  Download PDF</span>}</Button>
+
+
+<Button onClick={saveContext} disabled={!stateChange} className="flex items-center gap-2 bg-[#fff] text-[#000] hover:bg-[#f2f2f2] hover:text-[#000] border border-[black]"> <Save className="w-4" />Save</Button>
+</div>
+</div>
+      <div className={`w-full flex justify-start`}>
         <Toggle
           onClick={() => editor.chain().focus().undo().run()}
           disabled={
@@ -134,14 +183,6 @@ const MenuBar = ({ editorContent }: { editorContent: string }) => {
         >
           <Redo2Icon className="w-4"  />
         </Toggle>
-        </div>
-        <div className="flex gap-2 items-center">         
-
-        <Button onClick={downloadPdf} >{loading ? <Loader2 className="w-4 animate-spin" /> :<span className="flex items-center gap-2"><FileText className="w-4" />  Download PDF</span>}</Button>
-
-
-        <Button className="flex items-center gap-2 bg-[#fff] text-[#000] hover:bg-[#f2f2f2] hover:text-[#000] border border-[black]"> <Save className="w-4" />Save</Button>
-      </div>
       </div>
 
       <div className="flex gap-2 justify-center flex-wrap mb-4 border-b-2 pb-1">
@@ -290,6 +331,7 @@ const MenuBar = ({ editorContent }: { editorContent: string }) => {
           <PopoverContent  className="flex justify-center items-center w-fit" onPointerDownOutside={() => setOnHighlightOpen(false)}>
             <HexColorPicker  color={highlight} onChange={(color)=>{
               setHighlight(color)
+              console.log(color)
             editor.chain().focus().toggleHighlight({ color: color }).run();
           }} />
           </PopoverContent>
@@ -305,83 +347,61 @@ const MenuBar = ({ editorContent }: { editorContent: string }) => {
   )
 }
 
-const extensions = [
-  Color.configure({ types: [TextStyle.name, ListItem.name] }),
-  Highlight.configure({ multicolor: true }),
-  TextStyle,
-  FontFamily.configure({
-    types: ['textStyle'],
-  }),
-  TextAlign.configure({
-    types: ['heading', 'paragraph'],
-  }),
-  StarterKit.configure({
-    bulletList: {
-      keepMarks: true,
-      keepAttributes: false, // TODO : Making this as `false` becase marks are not preserved when I try to preserve attrs, awaiting a bit of help
+const EditorContainer = ({ selectedContent, directory, setArrowUp, arrowUp }: { selectedContent: any, directory: any ,  setArrowUp: any , arrowUp: any }) => {
+  const [html, setHtml] = useState<string>(selectedContent?.content || "");
+  const [stateChange, setStateChange] = useState(false);
+
+  const editor = useEditor({
+    extensions: [
+      Color.configure({ types: [TextStyle.name, ListItem.name] }),
+      TextStyle,
+      Highlight.configure({ multicolor: true }),
+      TextAlign.configure({
+        types: ['heading', 'paragraph'],
+      }),
+      FontFamily.configure({
+        types: ['textStyle'],
+      }),
+      StarterKit.configure({
+        bulletList: {
+          keepMarks: true,
+          keepAttributes: false, // TODO : Making this as `false` becase marks are not preserved when I try to preserve attrs, awaiting a bit of help
+        },
+        heading: {
+          levels: [1, 2, 3, 4, 5, 6],
+        },
+        orderedList: {
+          keepMarks: true,
+          keepAttributes: false, // TODO : Making this as `false` becase marks are not preserved when I try to preserve attrs, awaiting a bit of help
+        },
+        codeBlock: {
+          languageClassPrefix: 'javascript',
+        }
+      }),
+      CharacterCount.configure(),
+    ],
+    content: selectedContent?.content || "",
+    onUpdate({ editor }) {
+      setHtml(editor.getHTML());
+      setStateChange(true);
     },
-    heading: {
-      levels: [1, 2, 3, 4, 5, 6],
-    },
-    orderedList: {
-      keepMarks: true,
-      keepAttributes: false, // TODO : Making this as `false` becase marks are not preserved when I try to preserve attrs, awaiting a bit of help
-    },
-    codeBlock: {
-      languageClassPrefix: 'javascript',
+  }, [selectedContent]);
+
+  useEffect(() => {
+    if (editor) {
+      editor.commands.setContent(selectedContent?.content || "");
     }
-  }),
-  CharacterCount.configure(),
-]
-
-const content = `
-<h2>
-  Hi there,
-</h2>
-<p>
-  this is a <em>basic</em> example of <strong>Tiptap</strong>. Sure, there are all kind of basic text styles you’d probably expect from a text editor. But wait until you see the lists:
-</p>
-<ul>
-  <li>
-    That’s a bullet list with one …
-  </li>
-  <li>
-    … or two list items.
-  </li>
-</ul>
-<p>
-  Isn’t that great? And all of that is editable. But wait, there’s more. Let’s try a code block:
-</p>
-<pre>
-
-<code class="language-css">body {
-  display: none;
-  
-}</code></pre>
-<p>
-  I know, I know, this is impressive. It’s only the tip of the iceberg though. Give it a try and click a little bit around. Don’t forget to check the other examples too.
-</p>
-<blockquote>
-  Wow, that’s amazing. Good work, boy! 👏
-  <br />
-  — Mom
-</blockquote>
-`
-
-export default function EditorContainer () {
-  const [html, setHtml] = useState(content)
+  }, [selectedContent, editor]);
 
   return (
-    <div className="w-full h-min-screen p-4 rounded  flex justify-center flex-col items-center">
-      <div className="w-[90%] sm:w-[100%] h-min-screen border rounded p-4 m-4 flex justify-center flex-col items-center">
-        <EditorProvider onUpdate={(editor) => {
-          console.log(editor.editor.getHTML())
-          setHtml(editor.editor.getHTML())
-          
-        }} slotAfter={<Footer/>} slotBefore={<MenuBar editorContent={html} />} extensions={extensions} content={content}>
-        {/* <div id="editor-content" className="p-[3rem] hidden" dangerouslySetInnerHTML={{ __html: html }}></div> */}
-        </EditorProvider>
+    <div className="w-full h-min-screen p-4 rounded  flex justify-center flex-col items-center" >
+    <div className="w-[90%] sm:w-[100%] h-min-screen border rounded p-4 m-4 flex justify-center flex-col items-center editorContainer">
+      <MenuBar arrowUp={arrowUp} setArrowUp={setArrowUp} editor={editor} html={html} directory={directory} stateChange={stateChange} setStateChange={setStateChange} selectedContent={selectedContent} />
+      <EditorContent editor={editor} />
+      <Footer editor={editor} />
     </div>
     </div>
   )
 }
+
+export default EditorContainer;
