@@ -34,8 +34,6 @@ const HomePage = () => {
   const [autoPlay , setAutoPlay] = useState(false);;
   const [light, setLight] = useState(false);
 
-
-  // const handleEnded = async() => {
   //   if (autoNext) {
 
   //     const currentIndex = VIDEOLIST.findIndex((video: any) => video.name === selectedVideo?.name);
@@ -128,7 +126,7 @@ const HomePage = () => {
       <div className="min-h-screen flex ">
 
         {/* Sidebar */}
-        <div className="w-[300px] shadow-lg  overflow-x-hidden overflow-y-auto ">
+        <div className="w-[20%] shadow-lg  overflow-x-hidden overflow-y-auto tree">
           <h2 className="text-xl font-bold mb-6 ml-[1rem] dark:text-white">Local Directory Viewer</h2>
           <DirectoryTree files={FILE_SELECTED} onVideoSelect={(url :any)=>{
             setSelectedVideo({
@@ -138,7 +136,7 @@ const HomePage = () => {
         </div>
 
         {/* Main Content */}
-        <div className="flex-1 p-4  ">
+        <div className="flex-1 w-[80%] p-4  ">
           {
             !arrowUp &&
             <>

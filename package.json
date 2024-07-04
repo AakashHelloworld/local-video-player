@@ -11,6 +11,7 @@
   "dependencies": {
     "@mdxeditor/editor": "^3.6.1",
     "@radix-ui/react-checkbox": "^1.1.0",
+    "@radix-ui/react-dialog": "^1.1.1",
     "@radix-ui/react-label": "^2.1.0",
     "@radix-ui/react-popover": "^1.1.1",
     "@radix-ui/react-select": "^2.1.1",
@@ -30,6 +31,7 @@
     "@tiptap/starter-kit": "^2.4.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "html-react-parser": "^5.1.10",
     "html2canvas": "^1.4.1",
     "jspdf": "^2.5.1",
     "lucide-react": "^0.395.0",

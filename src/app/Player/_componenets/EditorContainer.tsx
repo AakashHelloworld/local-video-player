@@ -11,7 +11,7 @@ import { Toggle } from "@/components/ui/toggle"
 import { HexColorPicker } from "react-colorful";
 import { Bold, Italic, Underline, AlignLeft, AlignCenter, AlignRight, List, ListOrdered, Code2, MessageSquareQuote, Minus, Undo2Icon, Redo2Icon, WrapText, Highlighter, Paintbrush, FileText } from "lucide-react"
 import { ChevronsDown ,ChevronsUp } from 'lucide-react';
-
+import { Node } from '@tiptap/core'
 import TextAlign from '@tiptap/extension-text-align'
 import FontFamily from '@tiptap/extension-font-family'
 import CharacterCount from '@tiptap/extension-character-count'
@@ -37,20 +37,7 @@ type Context = {
   state?: any;
   dispatch?: any;
 };
-
-const Footer = ({editor}:any) => {
-
-  if (!editor) {
-    return null
-  }
-
-  return (
-    <div className="flex w-full justify-end gap-2 items-center border-t border-slate-200">
-      <p><span className="font-bold">{editor.storage.characterCount.characters()}</span> characters</p>
-      <p><span className="font-bold">{editor.storage.characterCount.words()}</span> words</p>
-    </div>
-  )
-}
+const limit = 1000
 
 const MenuBar = ({ html, directory, stateChange, setStateChange, selectedContent, editor,setArrowUp, arrowUp }: { html: string, directory: any, stateChange: boolean, setStateChange: any, selectedContent: any, editor:any, setArrowUp:any, arrowUp:any}) => {
   const { state, dispatch }: Context = useGlobalContext();
@@ -66,47 +53,15 @@ const MenuBar = ({ html, directory, stateChange, setStateChange, selectedContent
   if (!editor) {
     return <h1>Loading...</h1>
   }
-
-  const downloadPdf = () => {
-    setLoading(true);
-    const doc = new jsPDF();
-    const element = document.getElementsByClassName('tiptap')[0];
-
-    const options = {
-      scale: 2,
-      useCORS: true,
-      scrollY: 0,
-      scrollX: 0,
-      width: element.clientWidth,
-      height: element.clientHeight,
-    };
-
-    html2canvas(element as HTMLDivElement, options).then(canvas => {
-      const imgData = canvas.toDataURL('image/png');
-      const imgProps = doc.getImageProperties(imgData);
-      const pdfWidth = doc.internal.pageSize.getWidth();
-      const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-
-      let offsetY = 0;
-      let remainingHeight = pdfHeight;
-
-      // Iterate through pages
-      while (remainingHeight > 0) {
-        doc.addImage(imgData, 'PNG', 0, offsetY, pdfWidth, pdfHeight);
-        remainingHeight -= pdfHeight;
-
-        if (remainingHeight > 0) {
-          doc.addPage();
-        }
-
-        offsetY -= pdfHeight;
-      }
-
-      doc.save('document.pdf');
-      setLoading(false);
-    });
-    setLoading(false);
+  const insertPageBreak = () => {
+    editor.chain().focus().insertContent('<div class="pagebreak"></div>').run();
   };
+
+
+  const downloadPdf = async() => {
+    window.print();
+ };;
+
 
   const saveContext = async () => {
     const updatedVideosList = VIDEOLIST.map((video: any) => {
@@ -138,7 +93,7 @@ const MenuBar = ({ html, directory, stateChange, setStateChange, selectedContent
   }
 
   return (
-    <div className="flex items-center flex-col justify-center w-full">
+    <div className="flex items-center flex-col justify-center w-full menu">
       <div className="w-[100%] flex justify-between gap-2 items-center">     
         <div className="flex gap-2 items-center">
                 {
@@ -158,7 +113,8 @@ const MenuBar = ({ html, directory, stateChange, setStateChange, selectedContent
 <Button onClick={saveContext} disabled={!stateChange} className="flex items-center gap-2 bg-[#fff] text-[#000] hover:bg-[#f2f2f2] hover:text-[#000] border border-[black]"> <Save className="w-4" />Save</Button>
 </div>
 </div>
-      <div className={`w-full flex justify-start`}>
+      <div className={`w-full flex justify-between mt-4`}>
+        <div>
         <Toggle
           onClick={() => editor.chain().focus().undo().run()}
           disabled={
@@ -183,7 +139,13 @@ const MenuBar = ({ html, directory, stateChange, setStateChange, selectedContent
         >
           <Redo2Icon className="w-4"  />
         </Toggle>
+        </div>
+        <div className="flex gap-2 justify-end">
+        <p><span className={`font-bold ${editor.storage.characterCount == limit ? "text-[red]":""}`}>{editor.storage.characterCount.characters()} / <span className="text-[red]">{limit}</span></span> characters</p>
+        <p><span className="font-bold">{editor.storage.characterCount.words()}</span> words</p>
+        </div>
       </div>
+
 
       <div className="flex gap-2 justify-center flex-wrap mb-4 border-b-2 pb-1">
         <Toggle
@@ -290,12 +252,12 @@ const MenuBar = ({ html, directory, stateChange, setStateChange, selectedContent
         >
           <List className="w-4"/>
         </Toggle>
-        <Toggle
+        {/* <Toggle
           pressed={editor.isActive('orderedList')}
           onClick={() => editor.chain().focus().toggleOrderedList().run()}
         >
           <ListOrdered className="w-4"/>
-        </Toggle>
+        </Toggle> */}
         <Toggle
           pressed={editor.isActive('codeBlock')}
           onClick={() => editor.chain().focus().toggleCodeBlock().run()}
@@ -378,7 +340,9 @@ const EditorContainer = ({ selectedContent, directory, setArrowUp, arrowUp }: { 
           languageClassPrefix: 'javascript',
         }
       }),
-      CharacterCount.configure(),
+      CharacterCount.configure({
+        limit: limit,
+      }),
     ],
     content: selectedContent?.content || "",
     onUpdate({ editor }) {
@@ -395,10 +359,9 @@ const EditorContainer = ({ selectedContent, directory, setArrowUp, arrowUp }: { 
 
   return (
     <div className="w-full h-min-screen p-4 rounded  flex justify-center flex-col items-center" >
-    <div className="w-[90%] sm:w-[100%] h-min-screen border rounded p-4 m-4 flex justify-center flex-col items-center editorContainer">
+    <div id="#editor-content" className="w-[90%] sm:w-[100%] h-min-screen border rounded p-4 m-4 flex justify-center flex-col items-center editorContainer">
       <MenuBar arrowUp={arrowUp} setArrowUp={setArrowUp} editor={editor} html={html} directory={directory} stateChange={stateChange} setStateChange={setStateChange} selectedContent={selectedContent} />
-      <EditorContent editor={editor} />
-      <Footer editor={editor} />
+        <EditorContent editor={editor} />
     </div>
     </div>
   )

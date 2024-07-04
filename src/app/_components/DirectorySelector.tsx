@@ -9,6 +9,7 @@ type Context = {
   state?: any;
   dispatch?: any;
 };
+const videoExtensions = ['.mp4', '.avi', '.mkv', '.mov', '.flv'];
 
 const DirectorySelector = ({ setFiles }: { setFiles: (files: Array<any>) => void }) => {
   const router = useRouter();
@@ -18,12 +19,12 @@ const DirectorySelector = ({ setFiles }: { setFiles: (files: Array<any>) => void
   const collectFiles = async (directory: FileSystemDirectoryHandle, videosList: Array<any> = [], subtitles: Array<any> = []) => {
     const files: Array<any> = [];
     for await (const entry of directory.values()) {
-      if (entry.kind === 'file' && entry.name.endsWith('.mp4')) {
+      if (entry.kind === 'file' && videoExtensions.some(ext => entry.name.endsWith(ext))) {
         const fileHandle = entry as FileSystemFileHandle;
         const file = await fileHandle.getFile();
         const url = URL.createObjectURL(file);
         files.push({ id: Math.random(), name: fileHandle.name, kind: 'file' });
-        videosList.push({ id: Math.random(), name: fileHandle.name, url, kind: 'file', content: '<h1>Hey there, How are you?</h1>', completion: 'No' });
+        videosList.push({ id: Math.random(), name: fileHandle.name, url, kind: 'file', content: '<p></p>', completion: 'No' });
 
       } else if (entry.kind === 'file' && entry.name.endsWith('.srt')) {
         const fileHandle = entry as FileSystemFileHandle;

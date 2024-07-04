@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button"
 import { Flashlight, FlashlightOff } from "lucide-react"
 export default function ControlVid({autoPlay, autoNext, light, toggleAutoPlay, toggleAutoNext, toggleLight}:any) {
     return (
-        <div className="p-6 w-full flex justify-between relative z-[2] bg-[black] rounded-bl-lg rounded-br-lg border-t  border-gray-200 " >
+        <div className="p-6 w-full flex justify-between relative z-[2] bg-[black] rounded-bl-lg rounded-br-lg border-t  border-gray-200 controller" >
         <div className="flex items-center space-x-2">
         <div className="flex items-center space-x-2">
           <Checkbox id="terms"  checked={autoPlay} onCheckedChange={toggleAutoPlay} className='bg-[white]' />
