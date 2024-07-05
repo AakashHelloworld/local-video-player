@@ -28,7 +28,7 @@ export default function Home() {
                     if( video.content != '<p></p>') 
                         {
                             return (
-                                <div >
+                                <div key={index} >
                             <p className="text-md font-light">From: - {video?.name?.split('.')[0]}</p>
                             <div className='p-4'>{parse(video?.content)}</div>
                             </div>
