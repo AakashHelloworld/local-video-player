@@ -11,7 +11,7 @@ export default function Home() {
     return (
         <div className="flex flex-col h-screen justify-center items-center bg-gray-50">
 
-            <div className="w-[95%] rounded h-[95%]  p-4">
+            <div className="w-[95%] rounded h-[95%] grid grid-cols-2 gap-4 grid-rows-2 p-4">
 
                 <div onClick={() => {
                     setTheme('Youtube')
@@ -51,7 +51,7 @@ export default function Home() {
                         </ol>
                     </p>
                 </div>
-
+                
                 {/* <div onClick={()=>{
                     setTheme('Amazon')
                     setModal(true)
