@@ -117,7 +117,7 @@ const Home = () => {
                 
                   if(item.position == "left"){
                     return(
-                      <div className='flex items-start mb-6 gap-8'>
+                      <div className='flex items-start mb-6 gap-8' key={index}>
                            <div className="relative  shadow-xl  ">
                       <Image src={item?.image} alt="Select Theme" width={500} height={500} className='  w-[600px] h-[300px]'/>
                       </div>
