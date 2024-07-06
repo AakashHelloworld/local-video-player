@@ -9,10 +9,9 @@ type Context = {
   dispatch?: any;
 };
 import NoteKeeper from './_componenets/NoteKeeper';
-import ControlVid from './_componenets/ControlVid';
-import VidPlayer from './_componenets/VidPlayer';
 
-
+import ControlVid from '../_components/ControlVid';
+import VidPlayer from '../_components/VidPlayer';
 const HomePage = () => {
 
   const router = useRouter()
@@ -33,41 +32,6 @@ const HomePage = () => {
   const [autoNext, setAutoNext] = useState(true);
   const [autoPlay , setAutoPlay] = useState(false);;
   const [light, setLight] = useState(false);
-
-  //   if (autoNext) {
-
-  //     const currentIndex = VIDEOLIST.findIndex((video: any) => video.name === selectedVideo?.name);
-  //     let filterVideo = VIDEOLIST.filter((video:any)=> video.name == selectedVideo?.name)
-  //     const AllvideoAccept = VIDEOLIST.filter((video:any)=> video.name != selectedVideo?.name)
-  //     filterVideo[0].completion = "Yes"
-  //     const AllVideoNow =[...AllvideoAccept, ...filterVideo]
-  //     console.log(AllVideoNow)
-  //     dispatch({ type: 'VIDEO_ENDED_COMPLETION', payload: AllVideoNow });
-  //     const totalFiles = {
-  //       files: FILE_SELECTED,
-  //       subTitles: subtitles,
-  //       videosList: AllVideoNow
-  //     }
-  //    // Write the updated videos list to video.json
-  //   if (directory) {
-  //     try {
-  //       const videoFileHandle = await directory.getFileHandle('video.json');
-  //       const writableStream = await videoFileHandle.createWritable();
-  //       await writableStream.write(JSON.stringify(totalFiles, null, 2));
-  //       await writableStream.close();
-  //     } catch (error) {
-  //       console.error('Failed to write to video.json:', error);
-  //     }
-  //   }
-
-      
-  //     if (currentIndex >= 0 && currentIndex < VIDEOLIST.length - 1) {
-  //       setSelectedVideo({
-  //         name:VIDEOLIST[currentIndex + 1].name,
-  //         url:VIDEOLIST[currentIndex + 1].url});
-  //     }
-  //   }
-  // };
 
   const handleEnded = async () => {
     if (autoNext) {
@@ -118,15 +82,13 @@ const HomePage = () => {
   };
   
 
-
-
   return (
     < >
       <Navbar />
-      <div className="min-h-screen flex ">
+      <div className="min-h-screen flex flex-col sm:flex-row ">
 
         {/* Sidebar */}
-        <div className="w-[20%] shadow-lg  overflow-x-hidden overflow-y-auto tree">
+        <div className="w-[100%] sm:w-[20%] shadow-lg  overflow-x-hidden overflow-y-auto tree">
           <h2 className="text-xl font-bold mb-6 ml-[1rem] dark:text-white">Local Directory Viewer</h2>
           <DirectoryTree files={FILE_SELECTED} onVideoSelect={(url :any)=>{
             setSelectedVideo({
@@ -136,15 +98,15 @@ const HomePage = () => {
         </div>
 
         {/* Main Content */}
-        <div className="flex-1 w-[80%] p-4  ">
+        <div className="flex-1 w-[100%] sm:w-[80%] p-4  ">
           {
             !arrowUp &&
             <>
-          <VidPlayer selectedVideo={selectedVideo} handleEnded={handleEnded} autoPlay={autoPlay}/>
+          <VidPlayer selectedVideo={selectedVideo} handleEnded={handleEnded} autoPlay={autoPlay} color="#94a3b8"/>
             
           <ControlVid light={light} autoPlay={autoPlay} autoNext={autoNext} toggleAutoNext={()=>{
             setAutoNext(!autoNext)
-          }} toggleAutoPlay={()=>{setAutoPlay(!autoPlay)}} toggleLight={()=>{setLight(!light)}} />
+          }} toggleAutoPlay={()=>{setAutoPlay(!autoPlay)}} toggleLight={()=>{setLight(!light)}} lightactive={true}/>
           </>
           }
 

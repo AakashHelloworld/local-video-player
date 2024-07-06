@@ -11,7 +11,7 @@ type Context = {
 };
 const videoExtensions = ['.mp4', '.avi', '.mkv', '.mov', '.flv'];
 
-const DirectorySelector = ({ setFiles }: { setFiles: (files: Array<any>) => void }) => {
+const DirectorySelector = ({theme}: any) => {
   const router = useRouter();
   const { dispatch }: Context = useGlobalContext();
   const [loading, setLoading] = useState(false);
@@ -85,7 +85,9 @@ const DirectorySelector = ({ setFiles }: { setFiles: (files: Array<any>) => void
 
 
         dispatch({ type: 'FILE_SELECTED_JSON', payload: { ...jsonData, directory: directory } });
-        router.push('/Player');
+        if( theme){
+          router.push(theme);
+        }
       }
     }
 
@@ -107,8 +109,9 @@ const DirectorySelector = ({ setFiles }: { setFiles: (files: Array<any>) => void
         await writableStream.close();
         dispatch({ type: 'FILE_SELECTED', payload: { ...totalFiles, directory: directory } });
         setLoading(false);
-        router.push('/Player');
-
+        if( theme){
+          router.push(theme);
+        }
       } catch (error) {
         console.error(error);
       }

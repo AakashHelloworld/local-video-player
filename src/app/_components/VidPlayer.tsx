@@ -1,3 +1,4 @@
+"use client"
 import { useGlobalContext } from "@/provider/state-manager";
 import Video from "next-video";
 
@@ -6,22 +7,22 @@ type Context = {
   dispatch?: any;
 };
 
-export default function VidPlayer({ selectedVideo, autoPlay, handleEnded }: any) {
+export default function VidPlayer({ selectedVideo, autoPlay, handleEnded, color }: any) {
   const { state }: Context = useGlobalContext();
   const Subtitles = state.subtitle || [];
   const VIDEOLIST = state.videosList || [];
 
   return (
-    <div className="bg-black overflow-hidden shadow-lg relative z-[2] rounded-tl-lg rounded-tr-lg mt-1 video ">
+    <div className="bg-black overflow-hidden shadow-lg relative z-[2] rounded-tl-lg rounded-tr-lg sm:mt-1 video ">
       {VIDEOLIST?.length && selectedVideo ? (
         VIDEOLIST?.map((video: any) => {
           if (video?.name === selectedVideo?.name) {
             console.log(video)
             return (
               <Video
-                accentColor="#94a3b8"
+                accentColor={color}
                 key={video.name}
-                className="w-full h-[500px]"
+                className="w-full h-[300px] sm:h-[500px]"
                 src={video?.url}
                 onEnded={handleEnded}
                 autoPlay={autoPlay}

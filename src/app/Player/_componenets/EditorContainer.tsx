@@ -358,8 +358,8 @@ const EditorContainer = ({ selectedContent, directory, setArrowUp, arrowUp }: { 
   }, [selectedContent, editor]);
 
   return (
-    <div className="w-full h-min-screen p-4 rounded  flex justify-center flex-col items-center" >
-    <div id="#editor-content" className="w-[90%] sm:w-[100%] h-min-screen border rounded p-4 m-4 flex justify-center flex-col items-center editorContainer">
+    <div className="w-full h-min-screen p-1 sm:p-4 rounded  flex justify-center flex-col items-center" >
+    <div id="#editor-content" className="w-[90%] sm:w-[100%] h-min-screen border rounded p-1 sm:p-4  sm:m-4 flex justify-center flex-col items-center editorContainer">
       <MenuBar arrowUp={arrowUp} setArrowUp={setArrowUp} editor={editor} html={html} directory={directory} stateChange={stateChange} setStateChange={setStateChange} selectedContent={selectedContent} />
         <EditorContent editor={editor} />
     </div>
