@@ -144,7 +144,7 @@ const Home = () => {
                   }
 
               return(
-                <div className='flex items-start mb-6 gap-8'>
+                <div key={index} className='flex items-start mb-6 gap-8'>
                 <div className="w-1/2 mt-8">
                 <div className="flex items-center gap-2">
                   <div className=" px-[14px] py-[10px] shadow-2xl shadow-[#e879f9] flex items-center justify-center rounded bg-[#e879f9] gap-2">
