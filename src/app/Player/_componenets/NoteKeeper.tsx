@@ -41,7 +41,7 @@ export default function NoteKeeper({selectedVideo, arrowUp, setArrowUp}:any) {
         <>
     <div className="w-full p-4 border rounded-lg mt-4 flex justify-end flex-col gap-2">
         <div className="flex gap-2 items-center w-full justify-between note">
-          <h2 className='font-semibold'>{selectedVideo?.name?.split('.')[0]}</h2>
+          <h2 className='font-semibold font-poppins'>{selectedVideo?.name?.split('.')[0]}</h2>
           {
           !arrowUp &&
           <>

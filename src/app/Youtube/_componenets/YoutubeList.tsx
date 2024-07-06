@@ -18,8 +18,8 @@ const YoutubeList = ({ selectedVideo, setSelectedVideo, handleEnded, VIDEOLIST }
                 >
                     <VideoThumbnail videoUrl={video?.url} time={10} width={100} height={60} />
                     <div>
-                    <p className="text-md font-semibold capitalize">{video?.name?.split('.')[0]}</p>
-                    <p className='flex items-center gap-2'>Completed: {video?.completion === "Yes" ? <BadgeCheck color='#0284c7' className='w-4 h-4' /> : <span className='text-red-500 text-[12px] font-semibold'>Not yet</span>}</p>
+                    <p className="text-sm font-medium font-poppins capitalize">{video?.name?.split('.')[0]}</p>
+                    <p className='flex text-[12px] items-center gap-2'>Completed: {video?.completion === "Yes" ? <BadgeCheck color='#0284c7' className='w-4 h-4' /> : <span className='text-red-500 text-[12px] font-semibold'>Not yet</span>}</p>
                     </div>
                 </div>
             ))}

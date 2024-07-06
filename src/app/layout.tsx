@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { Bebas_Neue, Poppins, Lato } from "next/font/google";
+import { Bebas_Neue, Poppins, Lato, Open_Sans } from "next/font/google";
 import { AppProvider } from '@/provider/state-manager'
 
 
@@ -9,6 +9,13 @@ const bebas_init = Bebas_Neue({
   weight: ['400'],
   display: "swap",
   variable: '--font-bebas_neue'
+});
+
+const open_sans_init = Open_Sans({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700', '800'],
+  display: "swap",
+  variable: '--font-open_sans'
 });
 
 const lato_init = Lato({
@@ -36,7 +43,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${bebas_init.variable} ${poppins_init.variable} ${lato_init.variable}`}>
+      <body className={`${bebas_init.variable} ${poppins_init.variable} ${lato_init.variable} ${open_sans_init.variable}`}>
         <AppProvider>
         {children}
         </AppProvider>

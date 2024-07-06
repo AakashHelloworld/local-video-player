@@ -57,6 +57,7 @@ const config = {
         poppins: ['var(--font-poppins)'],
         bebas_Neue: ['var(--font-bebas_neue)'],
         lato: ['var(--font-lato)'],
+        Open_Sans : ['var(--font-open_sans)']
 
       },
       borderRadius: {

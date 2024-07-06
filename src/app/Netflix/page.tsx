@@ -82,7 +82,7 @@ export default function Home() {
                     <ControlVid autoPlay={autoPlay} autoNext={autoNext} light={false} toggleAutoPlay={() => setAutoPlay(!autoPlay)} toggleAutoNext={() => setAutoNext(!autoNext)} toggleLight={() => {}} lightactive={false} />
                 </div>
                 <div className="p-4">
-                    <h2 className="text-2xl mb-4">Watch Next</h2>
+                    <h2 className="text-2xl mb-4 font-poppins">Watch Next</h2>
                     <NetflixList selectedVideo={selectedVideo} setSelectedVideo={setSelectedVideo} VIDEOLIST={VIDEOLIST} />
                 </div>
             </div>

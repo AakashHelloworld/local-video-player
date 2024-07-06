@@ -88,8 +88,8 @@ const HomePage = () => {
       <div className="min-h-screen flex flex-col sm:flex-row ">
 
         {/* Sidebar */}
-        <div className="w-[100%] sm:w-[20%] shadow-lg  overflow-x-hidden overflow-y-auto tree">
-          <h2 className="text-xl font-bold mb-6 ml-[1rem] dark:text-white">Local Directory Viewer</h2>
+        <div className="w-[100%] sm:w-[20%] shadow-lg  overflow-x-hidden overflow-y-auto tree pt-4">
+          <h2 className="text-xl font-bold mb-6 ml-[1rem] dark:text-white font-bebas_Neue">Local Directory Viewer</h2>
           <DirectoryTree files={FILE_SELECTED} onVideoSelect={(url :any)=>{
             setSelectedVideo({
               name : VIDEOLIST.find((video: any) => video.url === url)?.name,
