@@ -25,9 +25,9 @@ export default function About() {
         <h1 className='text-2xl font-bebas_Neue mb-4 inline border-b-[4px] border-[#e879f9]'>About Locallystream</h1>
         <div className='w-3/4 mt-8 '>
          {
-            list.map((item)=>{
+            list.map((item,index)=>{
                 return (
-                    <Accordion type="single" collapsible>
+                    <Accordion key={index} type="single" collapsible>
                     <AccordionItem value="item-1">
                       <AccordionTrigger className="">{item.title}</AccordionTrigger>
                       <AccordionContent>
