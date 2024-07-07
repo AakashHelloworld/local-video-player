@@ -5,33 +5,44 @@ import Modal from "@/components/ui/Modal";
 import DirectorySelector from "../_components/DirectorySelector";
 import Link from "next/link";
 import { Linkedin, Youtube } from "lucide-react";
+import Navbar from "../_components/Navbar";
+import { motion } from "framer-motion"
+
 export default function Home() {
     const [theme, setTheme] = useState('');
     const [modal, setModal] = useState(false);
 
     return (
         <div className="flex flex-col min-h-screen font-Poppins">
-        <div className='h-[7vh] w-screen flex mx-auto items-center justify-between px-4'>
-          <div>
-            <Link href="/">
-            <Image src="/Images/logo.svg" alt="Local-video" width={160} height={40} />
-            </Link>
-          </div>
-          <div className='flex space-x-4 font-poppins text-[14px] font-light mr-[8rem]'>
-            <Link href="/" ><p>Home</p></Link>
-            <Link href="/theme" ><p>Theme</p></Link>
-            <Link href="/feedback" ><p>Feedback</p></Link>
-          </div>
-          <div><Linkedin /></div>
-        </div>
-            <div className="w-[95%] rounded h-[95%] flex  flex-col gap-4 items-center justify-center mt-[4rem] ">
+            <Navbar/>
+            <div className="w-full rounded  flex  flex-col gap-4 items-center justify-center mt-[4rem] ">
                 <div className="w-full flex justify-center ">
-                        <h1 className="text-2xl font-semibold mb-4 font-bebas_Neue inline border-b-[4px] border-[#e879f9]">Select Theme</h1>
+                        <motion.h1 initial={{ opacity: 0, y: 100 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .3 }} className="text-2xl font-semibold mb-4 font-bebas_Neue inline border-b-[4px] border-[#e879f9]">Select Theme</motion.h1>
                 </div>
-                <div onClick={() => {
+                <motion.div initial={{ opacity: 0}} animate={{ opacity: 1, y: 0 }} transition={{ duration: .5, delay: .3 }}  onClick={()=>{
+                    setTheme('Player')
+                    setModal(true)
+                }} className="flex flex-col sm:flex-row w-[90%] sm:w-[80%]  gap-4 items-center border rounded cursor-pointer hover:bg-slate-200 relative overflow-hidden shadow-md  p-2 transition-all bg-[white] mt-8">
+                    <div className="h-full flex flex-col justify-center items-center w-[100px]">
+                    <Image src="/Images/player.svg" alt="Local-video" className="w-[50px] h-[50px]" width={100} height={100} />
+                    <h1 className="text-2xl font-semibold mb-4 font-bebas_Neue">Player</h1>
+                    </div>
+                    <div className="text-md font-light font-poppins"> 
+                    <p className="font-semibold font-poppins">Features: <span className="font-bold">(Recommended)</span></p>
+                        <ol className="list-decimal  mt-2 font-poppins">
+                            <li>Auto play and auto next</li>
+                            <li>Light on/off options</li>
+                            <li>Write notes</li>
+                            <li>Download all notes as PDF</li>
+                            <li>Indicates video completion</li>
+                        </ol>
+                    </div>
+                </motion.div>
+    
+                <motion.div initial={{ opacity: 0}} animate={{ opacity: 1, y: 0 }} transition={{ duration: .5, delay: .3 }}  onClick={() => {
                     setTheme('Youtube')
                     setModal(true)
-                }} className="flex w-[80%]  gap-4 items-center border rounded cursor-pointer hover:bg-slate-200 relative overflow-hidden shadow-md  p-2 transition-all bg-[white]">
+                }} className="flex flex-col sm:flex-row w-[90%] sm:w-[80%]  gap-4 items-center border rounded cursor-pointer hover:bg-slate-200 relative overflow-hidden shadow-md  p-2 transition-all bg-[white]">
                     <div className="h-full flex flex-col justify-center items-center w-[100px]">
                     <Image src="/Images/youtube.svg" alt="Local-video" className="w-[50px] h-[50px]" width={100} height={100} />
                     <h1 className="text-2xl font-semibold mb-4 font-bebas_Neue">YouTube</h1>
@@ -44,12 +55,12 @@ export default function Home() {
                             <li>Indicates video completion</li>
                         </ol>
                     </div>
-                </div>
+                </motion.div>
 
-                <div onClick={()=>{
+                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .5, delay: .3 }}  onClick={()=>{
                     setTheme('Netflix')
                     setModal(true)
-                }} className="flex w-[80%]  gap-4 items-center border rounded cursor-pointer hover:bg-slate-200 relative overflow-hidden shadow-md  p-2 transition-all bg-[white]">
+                }} className="flex flex-col sm:flex-row w-[90%] sm:w-[80%]  gap-4 items-center border rounded cursor-pointer hover:bg-slate-200 relative overflow-hidden shadow-md  p-2 transition-all bg-[white]">
                     <div className="h-full flex flex-col justify-center items-center w-[100px]">
                     <Image src="/Images/netflix.svg" alt="Local-video" className="w-[50px] h-[50px]" width={100} height={100} />
                     <h1 className="text-2xl font-semibold mb-4 font-bebas_Neue">Netflix</h1>
@@ -62,27 +73,7 @@ export default function Home() {
                             <li>Indicates video completion</li>
                         </ol>
                     </div>
-                </div>
-
-                <div onClick={()=>{
-                    setTheme('Player')
-                    setModal(true)
-                }} className="flex w-[80%]  gap-4 items-center border rounded cursor-pointer hover:bg-slate-200 relative overflow-hidden shadow-md  p-2 transition-all bg-[white]">
-                    <div className="h-full flex flex-col justify-center items-center w-[100px]">
-                    <Image src="/Images/player.svg" alt="Local-video" className="w-[50px] h-[50px]" width={100} height={100} />
-                    <h1 className="text-2xl font-semibold mb-4 font-bebas_Neue">Player</h1>
-                    </div>
-                    <div className="text-md font-light font-poppins">
-                    <span className="font-semibold font-poppins">Features:</span>
-                        <ol className="list-decimal  mt-2 font-poppins">
-                            <li>Auto play and auto next</li>
-                            <li>Light on/off options</li>
-                            <li>Write and download notes for each video</li>
-                            <li>Download all notes as PDF</li>
-                            <li>Indicates video completion</li>
-                        </ol>
-                    </div>
-                </div>
+                </motion.div>
     
             </div>
             {(modal && theme) && <Modal isOpen={modal} onClose={() => {

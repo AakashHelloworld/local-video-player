@@ -26,9 +26,9 @@ const HomePage = () => {
           if(FILE_SELECTED?.length == 0) router.push("/")
     }, [FILE_SELECTED])
 
-  const [selectedVideo, setSelectedVideo] = useState(FILE_SELECTED.length ? {
-    name : FILE_SELECTED[0].name,
-    url:FILE_SELECTED[0].url} : null);
+  const [selectedVideo, setSelectedVideo] = useState(VIDEOLIST.length ? {
+    name : VIDEOLIST[0].name,
+    url:VIDEOLIST[0].url} : null);
   const [autoNext, setAutoNext] = useState(true);
   const [autoPlay , setAutoPlay] = useState(false);;
   const [light, setLight] = useState(false);

@@ -20,9 +20,9 @@ export default function Home() {
     const subtitles = state.subtitle || [];
     const directory = state.directory;
 
-    const [selectedVideo, setSelectedVideo] = useState(FILE_SELECTED.length ? {
-        name: FILE_SELECTED[0].name,
-        url: FILE_SELECTED[0].url
+    const [selectedVideo, setSelectedVideo] = useState(VIDEOLIST.length ? {
+        name: VIDEOLIST[0].name,
+        url: VIDEOLIST[0].url
     } : null);
 
     useEffect(() => {
