@@ -1,3 +1,5 @@
+"use client"
+
 import {CircleArrowRight, Palette, FolderUp, LayoutDashboard, BadgeCheck,NotebookPen, FileDown, FileJson } from "lucide-react";
 import {motion} from "framer-motion"
 import { Button } from "@/components/ui/button";
@@ -59,7 +61,7 @@ export default function Work() {
         }
       ]
     return   (<div className='flex flex-col justify-center items-center mt-12'>
-    <h1 className='text-2xl font-bebas_Neue mb-4 inline border-b-[4px] border-[#e879f9]'>How It Works</h1>
+    <motion.h1 initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: .3 }} className='text-2xl font-bebas_Neue mb-4 inline border-b-[4px] border-[#e879f9]'>How It Works</motion.h1>
     <div className='w-11/12 px-4 sm:w-3/4 mt-8 sm:mt-[8rem] flex flex-col items-center gap-8 sm:gap-[8rem]'>
       
   
@@ -69,7 +71,7 @@ export default function Work() {
           
             if(item.position == "left"){
               return(
-                <div className='flex flex-col sm:flex-row items-start mb-6 gap-8 relative' key={index}>
+                <motion.div initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: .3 }}   className='flex flex-col sm:flex-row items-start mb-6 gap-8 relative' key={index}>
                      <div className="relative  shadow-xl  ">
                 <Image src={item?.image} alt="Select Theme" width={500} height={500} className='  w-[600px] h-[300px]'/>
                 </div>
@@ -90,14 +92,14 @@ export default function Work() {
                   }
                 </p>
                 </div>
-                <div className="absolute inset-0 -z-10 h-full w-full bg-white bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]"><div className="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-fuchsia-400 opacity-20 blur-[100px]"></div></div>
+                <div className="absolute inset-0 -z-10 h-full w-full bg-white bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]"><div className="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-fuchsia-400 opacity-20 blur-[50px]"></div></div>
 
-              </div>
+              </motion.div>
               )
             }
 
         return(
-          <div key={index} className='flex flex-col-reverse sm:flex-row items-start mb-6 gap-8 relative'>
+          <motion.div initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: .3 }}   key={index} className='flex flex-col-reverse sm:flex-row items-start mb-6 gap-8 relative'>
           <div className="w-full sm:w-1/2 mt-8">
           <div className="flex items-center gap-2">
             <div className=" px-[14px] py-[10px] shadow-2xl shadow-[#e879f9] flex items-center justify-center rounded bg-[#e879f9] gap-2">
@@ -116,8 +118,8 @@ export default function Work() {
           <div className="relative shadow-xl ">
           <Image src={item?.image} alt="Select Theme" width={500} height={500} className=' w-[600px] h-[300px]'/>
           </div>
-          <div className="absolute inset-0 -z-10 h-full w-full bg-white bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]"><div className="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-fuchsia-400 opacity-20 blur-[100px]"></div></div>
-        </div>
+          <div className="absolute inset-0 -z-10 h-full w-full bg-white bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]"><div className="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-fuchsia-400 opacity-20 blur-[50px]"></div></div>
+        </motion.div>
         )})
       }
 
