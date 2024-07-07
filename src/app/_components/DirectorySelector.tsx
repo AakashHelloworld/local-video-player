@@ -9,7 +9,7 @@ type Context = {
   state?: any;
   dispatch?: any;
 };
-const videoExtensions = ['.mp4', '.avi', '.mkv', '.mov', '.flv'];
+const videoExtensions = ['.mp4', '.avi', '.mkv', '.mov', '.flv', 'webm'];
 
 const DirectorySelector = ({theme}: any) => {
   const router = useRouter();
