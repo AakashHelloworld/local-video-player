@@ -3,15 +3,15 @@ import React, { useEffect, useState } from 'react';
 import { useGlobalContext } from "@/provider/state-manager";
 import DirectoryTree from './_componenets/DirectoryTree';
 import { useRouter } from 'next/navigation';
-import Navbar from './_componenets/Navbar';
 type Context = {
   state?: any;
   dispatch?: any;
 };
 import NoteKeeper from './_componenets/NoteKeeper';
-
+import ReactPlayerComponents from '../_components/ReactPlayerComponen';
 import ControlVid from '../_components/ControlVid';
 import VidPlayer from '../_components/VidPlayer';
+import Navbar from './_componenets/Navbar';
 const HomePage = () => {
 
   const router = useRouter()
@@ -104,6 +104,8 @@ const HomePage = () => {
             <>
           <VidPlayer selectedVideo={selectedVideo} handleEnded={handleEnded} autoPlay={autoPlay} color="#94a3b8"/>
             
+
+          {/* <ReactPlayerComponents selectedVideo={selectedVideo} handleEnded={handleEnded} autoPlay={autoPlay} color="#94a3b8"/> */}
           <ControlVid light={light} autoPlay={autoPlay} autoNext={autoNext} toggleAutoNext={()=>{
             setAutoNext(!autoNext)
           }} toggleAutoPlay={()=>{setAutoPlay(!autoPlay)}} toggleLight={()=>{setLight(!light)}} lightactive={true}/>

@@ -3,7 +3,7 @@ import { useState, useRef, useEffect } from 'react';
 import { Button } from "@/components/ui/button"
 import { StickyNote, TwitterIcon} from "lucide-react";
 import { Suspense } from 'react';
-import "@mdxeditor/editor/style.css";
+// import "@mdxeditor/editor/style.css";
 import EditorContainer from './EditorContainer';
 
 import { useGlobalContext } from "@/provider/state-manager";

@@ -30,7 +30,19 @@ const DirectorySelector = ({theme}: any) => {
       } else if (entry.kind === 'file' && entry.name.endsWith('.srt')) {
         const fileHandle = entry as FileSystemFileHandle;
         const file = await fileHandle.getFile();
-        const url = URL.createObjectURL(file);
+        const fileContent = await file.text();
+        console.log(fileContent)
+
+        let vttContent = 'WEBVTT\n\n' + fileContent
+        .replace(/\r/g, '')
+        .replace(/(\d+:\d+:\d+),(\d+)/g, (_ : string, time : string, ms : string) => {
+          return `${time}.${ms.padEnd(3, '0')}`;
+        })
+        .replace(/(\d+)\n/g, '$1\n');
+    
+        const blob = new Blob([vttContent], { type: 'text/vtt' });
+
+        const url = URL.createObjectURL(blob);
         subtitles.push({ id: Math.random(), name: fileHandle.name, url, kind: 'file' });
 
       } else if (entry.kind === 'directory') {
@@ -59,7 +71,31 @@ const DirectorySelector = ({theme}: any) => {
         });
 
       console.log(jsonData.videosList)
-      } else if (entry.kind === 'directory') {
+      }else if (entry.kind === 'file' && entry.name.endsWith('.srt')) {
+        const fileHandle = entry as FileSystemFileHandle;
+        const file = await fileHandle.getFile();
+        const fileContent = await file.text();
+        console.log(fileContent)
+
+        let vttContent = 'WEBVTT\n\n' + fileContent
+        .replace(/\r/g, '')
+        .replace(/(\d+:\d+:\d+),(\d+)/g, (_ : string, time : string, ms : string) => {
+          return `${time}.${ms.padEnd(3, '0')}`;
+        })
+        .replace(/(\d+)\n/g, '$1\n');
+    
+        const blob = new Blob([vttContent], { type: 'text/vtt' });
+
+        const url = URL.createObjectURL(blob);
+        
+        jsonData.subTitles = jsonData.subTitles.map((data: any) => {
+          if (data.name === entry.name) {
+            return { ...data, url };
+          }
+          return data; // Return the data as it is if it doesn't match the entry name
+        });
+      }
+       else if (entry.kind === 'directory') {
         const subdirectoryHandle = entry as FileSystemDirectoryHandle;
         await regenerateURL({ directory: subdirectoryHandle, jsonData });
       }
@@ -83,6 +119,7 @@ const DirectorySelector = ({theme}: any) => {
         console.log(jsonData.videosList)
         if(jsonData?.videosList?.[0].name) await regenerateURL({directory, jsonData: jsonData})
         console.log(jsonData)
+
 
 
         dispatch({ type: 'FILE_SELECTED_JSON', payload: { ...jsonData, directory: directory } });
