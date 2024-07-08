@@ -8,7 +8,6 @@ type Context = {
   dispatch?: any;
 };
 import NoteKeeper from './_componenets/NoteKeeper';
-import ReactPlayerComponents from '../_components/ReactPlayerComponen';
 import ControlVid from '../_components/ControlVid';
 import VidPlayer from '../_components/VidPlayer';
 import Navbar from './_componenets/Navbar';
