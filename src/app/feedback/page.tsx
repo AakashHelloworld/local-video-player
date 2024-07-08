@@ -9,7 +9,7 @@ export default function Feedback() {
         <div>
             <Navbar />
             <div className="mt-[4rem] flex flex-col items-center h-[80vh]">
-            <motion.h1 initial={{ opacity: 0, y: 100 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .3 }}  className='font-bebas_Neue text-2xl mb-4'>We Value Your Feedback</motion.h1>
+            <motion.h1 initial={{ opacity: 0, y: 100 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .3 }}  className='font-bebas_Neue inline border-b-[4px] border-[#e879f9] text-2xl mb-4'>We Value Your Feedback</motion.h1>
                 <motion.p initial={{ opacity: 0, y: 100 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .3, delay: .2 }} className='text-sm w-11/12 sm:w-1/2 font-light font-poppins text-center'>
                 Thank you for using our web app! Your feedback is crucial in helping us improve and provide you with the best experience. Please take a moment to fill out the form by clicking the button below.            </motion.p>
 
