@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { useGlobalContext } from "@/provider/state-manager";
 import { useRouter } from 'next/navigation';
 import { Loader2 } from "lucide-react";
+import { showDirectoryPicker, showOpenFilePicker } from 'file-system-access'
 
 type Context = {
   state?: any;
@@ -121,7 +122,7 @@ const DirectorySelector = ({theme}: any) => {
   const handleBrowse = async () => {
     try {
       setLoading(true);
-      const handle = await window.showDirectoryPicker();
+      const handle = await showDirectoryPicker();
       await checkJSONFileAlready(handle);
     } catch (error) {
       setLoading(false);
