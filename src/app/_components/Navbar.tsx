@@ -1,7 +1,7 @@
 "use client;"
 import Image from 'next/image'
 import Link from 'next/link'
-import { Linkedin, Menu, X } from 'lucide-react'
+import { Linkedin, Menu, X, ArrowUpRight } from 'lucide-react'
 import {
   Sheet,
   SheetContent,
@@ -26,10 +26,6 @@ const Navbar = () => {
     {
         name:'Theme',
         link:'/theme'
-    },
-    {
-        name:'Feedback',
-        link:'/feedback'
     }
   ]
 
@@ -40,7 +36,7 @@ const Navbar = () => {
           <Image src="/Images/logo.svg" alt="Local-video" width={160} height={40} />
           </Link>
         </div>
-        <div className='space-x-4 rounded-full flex items-center justify-center p-4 w-[400px] font-poppins text-[14px] font-light mr-[8rem] rounded-full border-2  border-white/5 shadow-sky-100 backdrop-blur-lg backdrop-filter shadow-sm'>
+        <div className='space-x-[2rem] rounded-full flex items-center justify-center p-4 w-[400px] font-poppins text-[14px] font-light mr-[8rem] rounded-full border-2  border-white/5 shadow-sky-100 backdrop-blur-lg backdrop-filter shadow-sm'>
           {/* <Link href="/" ><p>Home</p></Link>
           <Link href="/theme" ><p>Theme</p></Link>
           <Link href="/feedback" ><p>Feedback</p></Link> */}
@@ -57,6 +53,14 @@ const Navbar = () => {
 `}>{link.name}</p></Link>
                         ))
                     }
+                  <a 
+                    href="https://docs.google.com/forms/d/e/1FAIpQLSdfBrH8Yp19yiv1s3RY3xNaeNDGxC4evfhytBhw3JUiEMSQOQ/viewform"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                ><p className='relative text-white text-[16px] font-medium flex justify-center font-poppins'>
+                    Feedback <ArrowUpRight/>
+                    </p>
+                </a>
         </div>
         <div className='hidden sm:flex'><Linkedin color='white' /></div>
         <Sheet>

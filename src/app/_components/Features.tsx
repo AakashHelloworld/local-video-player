@@ -14,7 +14,7 @@ export default function Feature() {
     <motion.p initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: .5 , delay: .5}} className="text-white font-poppins text-opacity-50	">The platform offers a range of features that make it easy for users to enjoy their local videos.</motion.p>
     </div>
         
-          <div className="grid grid-cols-10 grid-rows-6 gap-5 h-[70rem] w-[80rem]">
+          <div className="grid grid-cols-10 grid-rows-6 gap-5 h-[70rem] w-[80rem] sm:fex sm:flex-col">
              
              
           <div className="col-span-6 row-span-2 bg-gradient-to-br from-slate-900 to-slate-700 rounded-lg p-4 bg-opacity-30">

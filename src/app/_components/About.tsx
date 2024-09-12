@@ -19,7 +19,7 @@ export default function About() {
         },
         {
             title: "Are we improving the platform?",
-            answer:'Yes, we are plnning to add more themes and improve the platform. Stay tuned for more updates.'
+            answer:'Yes, we are planning to add more themes and improve the platform. Stay tuned for more updates.'
         },
     ]
     return (   <div className='flex justify-center mt-[10rem]'>

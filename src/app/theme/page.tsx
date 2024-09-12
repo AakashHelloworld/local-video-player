@@ -16,19 +16,19 @@ export default function Home() {
         <div className="flex flex-col min-h-screen font-Poppins">
             <Navbar/>
             <div className="w-full rounded  flex  flex-col gap-4 items-center justify-center mt-[4rem] ">
-                <div className="w-full flex justify-center ">
-                        <motion.h1 initial={{ opacity: 0, y: 100 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .3 }} className="text-2xl font-semibold mb-4 text-white font-bebas_Neue border-[#e879f9]">Select Theme</motion.h1>
+                <div className="w-full flex justify-center mt-8 ">
+                        <motion.h1 initial={{ opacity: 0, y: 100 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .3 }} className="text-2xl mb-4 text-[4rem] text-white font-bebas_Neue border-[#e879f9]">Select <span className="text-[#818cf8] mt-4">Theme</span></motion.h1>
                 </div>
                 <motion.div initial={{ opacity: 0}} animate={{ opacity: 1, y: 0 }} transition={{ duration: .5, delay: .3 }}  onClick={()=>{
                     setTheme('Player')
                     setModal(true)
-                }} className="flex flex-col sm:flex-row w-[90%] sm:w-[80%]  gap-4 items-center border rounded cursor-pointer relative overflow-hidden shadow-md  p-2 transition-all text-white bg-transparanet mt-8 bg-blur">
+                }} className="flex flex-col sm:flex-row w-[90%] sm:w-[80%]  gap-4 items-center rounded cursor-pointer relative overflow-hidden shadow-md  p-2 transition-all text-white bg-gradient-to-br from-slate-900 to-slate-700 mt-8">
                     <div className="h-full flex flex-col justify-center items-center w-[100px]">
                     <Image src="/Images/player.svg" alt="Local-video" className="w-[50px] h-[50px]" width={100} height={100} />
                     <h1 className="text-2xl font-semibold mb-4 font-bebas_Neue">Player</h1>
                     </div>
                     <div className="text-md font-light font-poppins"> 
-                    <p className="font-semibold font-poppins">Features: <span className="font-bold">(Recommended)</span></p>
+                    <p className="font-semibold font-poppins">Features: <span className="font-bold text-[#818cf8]">(Recommended)</span></p>
                         <ol className="list-decimal  mt-2 font-poppins">
                             <li>Auto play and auto next</li>
                             <li>Light on/off options</li>
@@ -42,13 +42,13 @@ export default function Home() {
                 <motion.div initial={{ opacity: 0}} animate={{ opacity: 1, y: 0 }} transition={{ duration: .5, delay: .3 }}  onClick={() => {
                     setTheme('Youtube')
                     setModal(true)
-                }} className="flex flex-col text-white sm:flex-row w-[90%] sm:w-[80%]  gap-4 items-center border rounded cursor-pointer relative overflow-hidden shadow-md  p-2 transition-all bg-transparaent">
+                }} className="flex flex-col text-white sm:flex-row w-[90%] sm:w-[80%]  gap-4 items-center rounded cursor-pointer relative overflow-hidden shadow-md  p-2 transition-all bg-gradient-to-br from-slate-900 to-slate-700">
                     <div className="h-full flex flex-col justify-center items-center w-[100px]">
                     <Image src="/Images/youtube.svg" alt="Local-video" className="w-[50px] h-[50px]" width={100} height={100} />
                     <h1 className="text-2xl font-semibold mb-4 font-bebas_Neue">YouTube</h1>
                     </div>
                     <div className="text-md font-light font-poppins">
-                        <span className="font-semibold">Features: <span className="font-bold">(Developing)</span></span>
+                        <span className="font-semibold">Features: <span className="font-bold text-[#818cf8]">(Developing)</span></span>
                         <ol className="list-decimal  mt-2">
                             <li>YouTube layout design</li>
                             <li>Auto play and auto next</li>
@@ -60,13 +60,13 @@ export default function Home() {
                 <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .5, delay: .3 }}  onClick={()=>{
                     setTheme('Netflix')
                     setModal(true)
-                }} className="flex flex-col text-white sm:flex-row w-[90%] sm:w-[80%]  gap-4 items-center border rounded cursor-pointer relative overflow-hidden shadow-md  p-2 transition-all bg-transparanet">
+                }} className="flex flex-col text-white sm:flex-row w-[90%] sm:w-[80%]  gap-4 items-center rounded cursor-pointer relative overflow-hidden shadow-md  p-2 transition-all bg-gradient-to-br from-slate-900 to-slate-700">
                     <div className="h-full flex flex-col justify-center items-center w-[100px]">
                     <Image src="/Images/netflix.svg" alt="Local-video" className="w-[50px] h-[50px]" width={100} height={100} />
                     <h1 className="text-2xl font-semibold mb-4 font-bebas_Neue">Netflix</h1>
                     </div>
                     <div className="text-md font-light font-poppins">
-                    <span className="font-semibold">Features: <span className="font-bold">(Developing)</span></span>
+                    <span className="font-semibold">Features: <span className="font-bold text-[#818cf8]">(Developing)</span></span>
                         <ol className="list-decimal  mt-2">
                             <li>YouTube layout design</li>
                             <li>Auto play and auto next</li>
