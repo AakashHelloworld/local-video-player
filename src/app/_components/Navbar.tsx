@@ -1,3 +1,4 @@
+"use client;"
 import Image from 'next/image'
 import Link from 'next/link'
 import { Linkedin, Menu, X } from 'lucide-react'
@@ -33,13 +34,13 @@ const Navbar = () => {
   ]
 
     return (
-        <div className='h-[7vh] w-screen flex mx-auto items-center justify-between px-4 '>
+        <div className='min-h-[80px] w-screen flex mx-auto items-center justify-between px-4 pt-[2rem] '>
         <div>
           <Link href="/" >
           <Image src="/Images/logo.svg" alt="Local-video" width={160} height={40} />
           </Link>
         </div>
-        <div className='space-x-4 font-poppins text-[14px] font-light mr-[8rem] hidden sm:flex'>
+        <div className='space-x-4 rounded-full flex items-center justify-center p-4 w-[400px] font-poppins text-[14px] font-light mr-[8rem] rounded-full border-2  border-white/5 shadow-sky-100 backdrop-blur-lg backdrop-filter shadow-sm'>
           {/* <Link href="/" ><p>Home</p></Link>
           <Link href="/theme" ><p>Theme</p></Link>
           <Link href="/feedback" ><p>Feedback</p></Link> */}
@@ -52,12 +53,12 @@ const Navbar = () => {
           } */}
                               {
                         link.map((link) => (
-                            <Link href={link.link} key={link.name} ><p className={` relative flex justify-center font-poppins ${currentPath==link.link ? "after:contents-[''] after:w-[3rem] after:h-[0.2rem] after:bg-[#e879f9] after:absolute after:-bottom-[0.6rem] after:rounded-lg":""}
+                            <Link href={link.link} key={link.name} ><p className={` relative text-white text-[16px] font-medium flex justify-center font-poppins ${currentPath==link.link ? "after:contents-[''] after:w-[3rem] after:h-[0.1rem] after:bg-white after:absolute after:-bottom-[0.6rem] after:rounded-lg":""}
 `}>{link.name}</p></Link>
                         ))
                     }
         </div>
-        <div className='hidden sm:flex'><Linkedin /></div>
+        <div className='hidden sm:flex'><Linkedin color='white' /></div>
         <Sheet>
       <SheetTrigger asChild>
         <Menu className='flex sm:hidden' size={24} color='#e879f9' />
@@ -79,7 +80,7 @@ const Navbar = () => {
                     link.map((link) => (
                          <Link href={link.link} key={link.name} > 
                         <SheetClose className='text-start'>
-                            <p className={`font-poppins text-lg mobile:text-sm tab:text-base relative flex justify-start font-poppins ${currentPath==link.link ? "after:contents-[''] after:w-[5rem] after:h-[0.4rem] after:bg-[#e879f9] after:absolute after:-bottom-[0.6rem] after:rounded-lg":""}`}>{link.name}
+                            <p className={`font-poppins text-lg mobile:text-sm text-white tab:text-base relative flex justify-start font-poppins ${currentPath==link.link ? "after:contents-[''] after:w-[5rem] after:h-[0.4rem] after:bg-[#e879f9] after:absolute after:-bottom-[0.6rem] after:rounded-lg":""}`}>{link.name}
                             </p>
                         </SheetClose>
                             </Link> 
