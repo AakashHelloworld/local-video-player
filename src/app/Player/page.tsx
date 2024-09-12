@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useGlobalContext } from "@/provider/state-manager";
 import DirectoryTree from './_componenets/DirectoryTree';
 import { useRouter } from 'next/navigation';
+import Myvideo from '../_components/Myvideo';
 type Context = {
   state?: any;
   dispatch?: any;
@@ -101,7 +102,7 @@ const HomePage = () => {
           {
             !arrowUp &&
             <>
-          <VidPlayer selectedVideo={selectedVideo} handleEnded={handleEnded} autoPlay={autoPlay} color="#94a3b8"/>
+          <Myvideo selectedVideo={selectedVideo} handleEnded={handleEnded} autoPlay={autoPlay} color="#94a3b8"/>
             
 
           {/* <ReactPlayerComponents selectedVideo={selectedVideo} handleEnded={handleEnded} autoPlay={autoPlay} color="#94a3b8"/> */}

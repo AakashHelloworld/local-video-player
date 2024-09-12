@@ -125,3 +125,9 @@
 ::-webkit-scrollbar-thumb:hover {
   background: transparent;
 }
+
+::cue{
+  color: white;
+  background-color: black;
+  font-size: large;
+}
