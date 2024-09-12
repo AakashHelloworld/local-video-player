@@ -17,8 +17,8 @@ export default function Myvideo({ selectedVideo, autoPlay, handleEnded, color }:
   const Subtitles = state.subtitle || [];
   let readySubtitles : any = []
   Subtitles.map((data: any) => {
-    let videoName = selectedVideo?.name?.split(".").slice(0, -1).join(".")
-    let subName = data?.name?.split(".").slice(0, -1).join(".")
+    let videoName = selectedVideo?.name?.split(".")?.slice(0, -1)?.join(".")
+    let subName = data?.name?.split(".")?.slice(0, -1)?.join(".")
       if(videoName === subName){
 
         readySubtitles.push({ kind:"subtitles", src: data?.url, srcLang: "en", label: "English" ,default: true });
@@ -42,6 +42,7 @@ export default function Myvideo({ selectedVideo, autoPlay, handleEnded, color }:
             (
                 <ReactPlayer
                 width="100%"
+                playsinline
                 height="100%"
                 onEnded={handleEnded}
                 muted={false}

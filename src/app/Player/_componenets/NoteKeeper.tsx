@@ -37,11 +37,12 @@ export default function NoteKeeper({selectedVideo, arrowUp, setArrowUp}:any) {
 
     }, [selectedVideo,VIDEOLIST ])
 
+    console.log(selectedVideo?.name?.split(".")?.slice(0, -1)?.join("."))
     return (
         <>
     <div className="w-full p-4 border rounded-lg mt-4 flex justify-end flex-col gap-2">
         <div className="flex gap-2 items-center w-full justify-between note">
-          <h2 className='font-semibold font-poppins'>{selectedVideo?.name?.split('.')[0]}</h2>
+          <h2 className='font-semibold font-poppins'>{selectedVideo?.name?.split(".")?.slice(0, -1)?.join(".")}</h2>
           {
           !arrowUp &&
           <>
