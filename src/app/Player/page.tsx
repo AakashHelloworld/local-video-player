@@ -86,7 +86,7 @@ const HomePage = () => {
     <>
     <div className=''>
 
-      <Navbar />
+      <Navbar need_pdf={true} />
       <div className="h-[90vh] flex flex-col sm:flex-row  relative">
 
         {/* Sidebar */}

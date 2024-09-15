@@ -11,7 +11,6 @@ import { useState } from "react";
 import Modal from "@/components/ui/Modal";
 import DirectorySelector from "../_components/DirectorySelector";
 
-
 const HeroSection = () => {
     const [modal, setModal] = useState(false);
 
@@ -51,8 +50,9 @@ const HeroSection = () => {
                         </Button>
                     </Link> */}
                 </motion.div>
-                <div className="card    w-[90%] sm:w-[850px]">
-                    <Video src="https://www.youtube.com/watch?v=-zrSjKoYef4" className='self-center w-[100%] h-[100%]' accentColor="#263444" />
+                <div className="card h-[500px]   w-[90%] sm:w-[850px]">
+                    {/* <Video src= className='self-center w-[100%] h-[100%]' accentColor="#263444" /> */}
+                        <ReactPlayer url="https://www.youtube.com/watch?v=N_ZxcisYYrI" width="100%" height="100%" />
                 </div>
                 {/* <div className="mt-4">
                     <p className="text-white text-center text-opacity-70 mb-4">Supported Browsers:</p>

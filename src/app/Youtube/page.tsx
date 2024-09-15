@@ -79,7 +79,7 @@ export default function Home () {
 
         return(
            <>
-            <Navbar />
+            <Navbar need_pdf={false}/>
             <div className="h-[95vh] flex flex-col sm:flex-row ">
 
             {/* <Youtube /> */}

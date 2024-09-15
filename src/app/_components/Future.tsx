@@ -26,8 +26,8 @@ export default function Future() {
       <div className="flex flex-col w-[100%]  rounded p-4 justify-center items-start">
 
       <div className="mb-8">
-<motion.h1 initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: .5, delay: .2 }} className='text-[1.8rem] sm:text-[4rem] text-white font-bebas_Neue inline'>FUTURE OF <span className="text-[#818cf8]">LOCALLY STREAM</span></motion.h1>
-<motion.p initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: .5 , delay: .5}} className="text-white text-[12px] sm:text-[16px] text-white font-poppins text-opacity-50	">We plan to enhance Locally Stream with new themes, a desktop app, and more tools to improve your video experience.</motion.p>
+<motion.h1 initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: .5, delay: .2 }} className='text-[1.8rem] sm:text-[4rem] text-white font-bebas_Neue inline'>FUTURE OF <span className="text-[#818cf8] capitalize uppercase">VIDEO EXPLORE</span></motion.h1>
+<motion.p initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: .5 , delay: .5}} className="text-white text-[12px] sm:text-[16px] text-white font-poppins text-opacity-50	">We plan to enhance Video Explore with new themes, a desktop app, and more tools to improve your video experience.</motion.p>
 </div>
 
 

@@ -26,8 +26,8 @@ export default function About() {
             <div className="flex flex-col w-[100%]  rounded p-4 justify-center items-start">
 
             <div className="mb-8">
-    <motion.h1 initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: .5, delay: .2 }} className='text-[1.8rem] sm:text-[4rem] text-white font-bebas_Neue inline'>ABOUT <span className="text-[#818cf8]">LOCALLY STREAM</span></motion.h1>
-    <motion.p initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: .5 , delay: .5}} className="text-white text-[12px] sm:text-[16px]  font-poppins text-opacity-50	">Locally Stream is a platform designed for seamless playback and organization of your local video files, with a focus on privacy and ease of use.</motion.p>
+    <motion.h1 initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: .5, delay: .2 }} className='text-[1.8rem] sm:text-[4rem] text-white font-bebas_Neue inline'>ABOUT <span className="text-[#818cf8] capitalize uppercase">VIDEO EXPLORE</span></motion.h1>
+    <motion.p initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: .5 , delay: .5}} className="text-white text-[12px] sm:text-[16px]  font-poppins text-opacity-50	">Video Explore is a platform designed for seamless playback and organization of your local video files, with a focus on privacy and ease of use.</motion.p>
     </div>
 
 

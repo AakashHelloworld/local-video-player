@@ -32,9 +32,9 @@ const poppins_init = Poppins({
   variable: '--font-poppins'
 });
 export const metadata: Metadata = {
-  title: "Locally Stream | Seamless Local Video Playback with Smart Features",
-  description: "Discover a better way to watch local videos on your laptop or desktop with Locally Stream. Customize your experience with popular themes, directory selection, completion badges, and note-taking tools. Enjoy smart features like auto-play and auto-skip, ensuring a smooth viewing experience while maintaining privacy.",
-  keywords: "Locally Stream, local video playback, smart video features, auto-skip, auto-play, completion badges, video themes, note-taking, video directory, privacy-focused platform",
+  title: "Video Explore | Seamless Local Video Playback with Smart Features",
+  description: "Discover a better way to watch local videos on your laptop or desktop with Video Explore. Customize your experience with popular themes, directory selection, completion badges, and note-taking tools. Enjoy smart features like auto-play and auto-skip, ensuring a smooth viewing experience while maintaining privacy.",
+  keywords: "Video Explore, local video playback, smart video features, auto-skip, auto-play, completion badges, video themes, note-taking, video directory, privacy-focused platform",
 }
 export default function RootLayout({
   children,
