@@ -3,9 +3,6 @@ import ReactPlayer from 'react-player';
 import { useEffect, useState } from 'react';
 import { useGlobalContext } from "@/provider/state-manager";
 
-let videosrc = "/videos/man.mp4";
-let sub = "/videos/man.vtt";
-
 type Context = {
     state?: any;
     dispatch?: any;

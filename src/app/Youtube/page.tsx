@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import YoutubeList from './_componenets/YoutubeList';
 import ControlVid from '../_components/ControlVid';
 import VidPlayer from '../_components/VidPlayer';
+import Myvideo from '../_components/Myvideo';
 type Context = {
     state?: any;
     dispatch?: any;
@@ -84,7 +85,7 @@ export default function Home () {
             {/* <Youtube /> */}
             {/* sidebar */}
             <div className='w-full sm:w-[65%]  p-4'>
-               <VidPlayer selectedVideo={selectedVideo} autoPlay={autoPlay} handleEnded={handleEnded} />
+               <Myvideo selectedVideo={selectedVideo} autoPlay={autoPlay} handleEnded={handleEnded} />
               <ControlVid  autoPlay={autoPlay} autoNext={autoNext} toggleAutoNext={()=>{
             setAutoNext(!autoNext)
           }} toggleAutoPlay={()=>{setAutoPlay(!autoPlay)}} />

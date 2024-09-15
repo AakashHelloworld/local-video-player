@@ -9,7 +9,7 @@ import Highlight from '@tiptap/extension-highlight'
 import StarterKit from '@tiptap/starter-kit'
 import { Toggle } from "@/components/ui/toggle"
 import { HexColorPicker } from "react-colorful";
-import { Bold, Italic, Underline, AlignLeft, AlignCenter, AlignRight, List, ListOrdered, Code2, MessageSquareQuote, Minus, Undo2Icon, Redo2Icon, WrapText, Highlighter, Paintbrush, FileText } from "lucide-react"
+import { Bold, Italic, Strikethrough, AlignLeft, AlignCenter, AlignRight, List, ListOrdered, Code2, MessageSquareQuote, Minus, Undo2Icon, Redo2Icon, WrapText, Highlighter, Paintbrush, FileText } from "lucide-react"
 import { ChevronsDown ,ChevronsUp } from 'lucide-react';
 import { Node } from '@tiptap/core'
 import TextAlign from '@tiptap/extension-text-align'
@@ -185,7 +185,7 @@ const MenuBar = ({ html, directory, stateChange, setStateChange, selectedContent
               .run()
           }
         >
-          <Underline className="w-4"/>
+          <Strikethrough className="w-4"/>
         </Toggle>
 
         <Select value={`${editor.getAttributes('heading').level ? editor.getAttributes('heading').level : 6}`} onValueChange={(value : string) => {
@@ -359,7 +359,7 @@ const EditorContainer = ({ selectedContent, directory, setArrowUp, arrowUp }: { 
 
   return (
     <div className="w-full h-min-screen p-1 sm:p-4 rounded  flex justify-center flex-col items-center" >
-    <div id="#editor-content" className="w-[90%] sm:w-[100%] h-min-screen border rounded p-1 sm:p-4  sm:m-4 flex justify-center flex-col items-center editorContainer">
+    <div id="#editor-content" className="w-[90%] sm:w-[100%]  bg-white h-min-screen border rounded p-1 sm:p-4  sm:m-4 flex justify-center flex-col items-center editorContainer">
       <MenuBar arrowUp={arrowUp} setArrowUp={setArrowUp} editor={editor} html={html} directory={directory} stateChange={stateChange} setStateChange={setStateChange} selectedContent={selectedContent} />
         <EditorContent editor={editor} />
     </div>

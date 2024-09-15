@@ -85,11 +85,12 @@ const HomePage = () => {
   return (
     <>
     <div className=''>
+
       <Navbar />
-      <div className="min-h-screen flex flex-col sm:flex-row ">
+      <div className="h-[90vh] flex flex-col sm:flex-row  relative">
 
         {/* Sidebar */}
-        <div className="w-[100%] sm:w-[20%] shadow-lg  overflow-x-hidden overflow-y-auto tree pt-4">
+        <div className="w-[100%] sm:w-[20%] shadow-lg h-full sticky  overflow-x-hidden overflow-y-scroll tree pt-4 ">
           <h2 className="text-xl font-bold mb-6 ml-[1rem] dark:text-white font-bebas_Neue">Local Directory Viewer</h2>
           <DirectoryTree files={FILE_SELECTED} onVideoSelect={(url :any)=>{
             setSelectedVideo({
@@ -99,7 +100,7 @@ const HomePage = () => {
         </div>
 
         {/* Main Content */}
-        <div className="flex-1 w-[100%] sm:w-[80%] p-4  ">
+        <div className="flex-1 w-[100%] sm:w-[80%] p-4  overflow-y-scroll  ">
           {
             !arrowUp &&
             <>

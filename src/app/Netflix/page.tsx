@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import NetflixList from './_components/NetflixList';
 import VidPlayer from '../_components/VidPlayer';
 import ControlVid from '../_components/ControlVid';
+import Myvideo from '../_components/Myvideo';
 
 type Context = {
     state?: any;
@@ -78,7 +79,7 @@ export default function Home() {
             {/* <Navbar /> */}
             <div className="min-h-screen bg-black text-white">
                 <div className="relative">
-                    <VidPlayer selectedVideo={selectedVideo} autoPlay={autoPlay} handleEnded={handleEnded}  color="red"/>
+                    <Myvideo selectedVideo={selectedVideo} autoPlay={autoPlay} handleEnded={handleEnded}  color="red"/>
                     <ControlVid autoPlay={autoPlay} autoNext={autoNext} light={false} toggleAutoPlay={() => setAutoPlay(!autoPlay)} toggleAutoNext={() => setAutoNext(!autoNext)} toggleLight={() => {}} lightactive={false} />
                 </div>
                 <div className="p-4">

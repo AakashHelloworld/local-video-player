@@ -43,7 +43,7 @@ const FileOrDirectory = ({ file, onVideoSelect, depth,selectedVideo, VIDEOLIST }
             <button
 
             key={video.name}
-              className="text-left w-full text-gray-700 hover:text-gray-900 focus:outline-none py-2 px-4 rounded transition-colors duration-200 flex items-center gap-2 font-poppins"
+              className="text-left w-full text-gray-700 hover:text-gray-900 focus:outline-none py-2 px-4 rounded transition-colors duration-200 flex items-center gap-2 font-poppins text-[14px]"
               onClick={() => onVideoSelect(video.url)}
             >
             {
@@ -51,6 +51,8 @@ const FileOrDirectory = ({ file, onVideoSelect, depth,selectedVideo, VIDEOLIST }
                  if(video.name == file.name && video.completion == "Yes") {
                    return <BadgeCheck key={video.name} className='w-4 h-4'  color='#0284c7' />
     
+                 }else{
+                  
                  }
               })
     
@@ -75,7 +77,7 @@ const FileOrDirectory = ({ file, onVideoSelect, depth,selectedVideo, VIDEOLIST }
     <li className={`w-full `}>
       <div className='tranparent'>
         <button
-          className={`text-left w-full text-gray-700 hover:text-gray-900 focus:outline-none py-2 px-4 rounded transition-colors duration-200 flex items-center gap-2 font-poppins ml-${depth * 2}`}
+          className={`text-left text-[14px] w-full text-gray-700 hover:text-gray-900 focus:outline-none py-2 px-4 rounded transition-colors duration-200 flex items-center gap-2 font-poppins ml-${depth * 2}`}
           onClick={() => setIsOpen(!isOpen)}
         >
 
