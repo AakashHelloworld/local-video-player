@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Bebas_Neue, Poppins, Lato, Open_Sans } from "next/font/google";
 import { AppProvider } from '@/provider/state-manager'
+import Script from "next/script";
 
 
 const bebas_init = Bebas_Neue({
@@ -43,6 +44,20 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+    <head>
+      <Script async src="https://www.googletagmanager.com/gtag/js?id=G-0KWJC7H598">
+      </Script>      
+      <Script id="google-analytics">
+        {
+          `
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-0KWJC7H598');
+          `
+        }
+      </Script>
+      </head>
       <body className={`${bebas_init.variable} ${poppins_init.variable} ${lato_init.variable} ${open_sans_init.variable}`}>
         <AppProvider>
         {children}
