@@ -63,7 +63,7 @@ const Navbar = () => {
                     </p>
                 </a>
         </div>
-        <div className='hidden sm:flex'><Linkedin color='white' /></div>
+        <div className='hidden sm:flex'><a href="https://www.linkedin.com/company/videoexplore" target="_blank" rel="noopener noreferrer"><Linkedin color='white' /></a></div>
         {/* <Sheet>
       <SheetTrigger asChild>
         <Menu className='flex sm:hidden' size={24} color='white' />
