@@ -11,6 +11,9 @@ type Context = {
     state?: any;
     dispatch?: any;
   };
+
+export const runtime = "edge"
+
 export default function Home () {
 
     const router = useRouter()

@@ -12,7 +12,11 @@ import NoteKeeper from './_componenets/NoteKeeper';
 import ControlVid from '../_components/ControlVid';
 import VidPlayer from '../_components/VidPlayer';
 import Navbar from './_componenets/Navbar';
-const HomePage = () => {
+
+
+export const runtime = "edge"
+
+export default function Home(){
 
   const router = useRouter()
   const { state, dispatch }: Context = useGlobalContext();
@@ -131,4 +135,3 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;

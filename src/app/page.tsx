@@ -11,7 +11,9 @@ import Work from "./_components/Work";
 import Future from "./_components/Future";
 import About from "./_components/About";
 import Feature from "./_components/Features";
-const Home = () => {
+
+export const runtime = "edge"
+export default function Home(){
 
   return (
     <>
@@ -30,4 +32,3 @@ const Home = () => {
   );
 };
 
-export default Home;

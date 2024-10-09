@@ -50,7 +50,7 @@ export default function NoteKeeper({selectedVideo, arrowUp, setArrowUp}:any) {
               selectedContent?.name &&
           <Button className="flex gap-2" onClick={() => setIsNoteOpen(!isNoteOpen)} >
           
-            <StickyNote/> Add Note</Button>
+            <StickyNote/> { isNoteOpen ? "Close" : "Open"} Note</Button>
             } 
             </>
           }
