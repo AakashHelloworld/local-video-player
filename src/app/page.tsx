@@ -12,7 +12,6 @@ import Future from "./_components/Future";
 import About from "./_components/About";
 import Feature from "./_components/Features";
 
-export const runtime = "edge"
 export default function Home(){
 
   return (
