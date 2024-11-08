@@ -14,7 +14,7 @@ import VidPlayer from '../_components/VidPlayer';
 import Navbar from './_componenets/Navbar';
 
 
-
+export const runtime = "edge";
 export default function Home(){
 
   const router = useRouter()

@@ -8,6 +8,7 @@ import { Linkedin, Youtube } from "lucide-react";
 import Navbar from "../_components/Navbar";
 import { motion } from "framer-motion"
 
+export const runtime = "edge";
 export default function Home() {
     const [theme, setTheme] = useState('');
     const [modal, setModal] = useState(false);

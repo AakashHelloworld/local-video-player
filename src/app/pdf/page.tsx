@@ -8,7 +8,7 @@ type Context = {
     dispatch?: any;
   };
 
-
+export const runtime = "edge";
 export default function Home() {
     const { state, dispatch }: Context = useGlobalContext();
     const VIDEOLIST = state.videosList || [];
