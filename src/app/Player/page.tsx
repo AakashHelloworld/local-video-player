@@ -33,7 +33,7 @@ export default function Home(){
     name : VIDEOLIST[0].name,
     url:VIDEOLIST[0].url} : null);
   const [autoNext, setAutoNext] = useState(true);
-  const [autoPlay , setAutoPlay] = useState(false);;
+  const [autoPlay , setAutoPlay] = useState(true);;
   const [light, setLight] = useState(false);
 
   const handleEnded = async () => {

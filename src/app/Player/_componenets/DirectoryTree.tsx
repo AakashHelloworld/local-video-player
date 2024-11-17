@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { File, FileVideo } from 'lucide-react';
 import { useGlobalContext } from "@/provider/state-manager";
 import { BadgeCheck , Folder, FolderOpen } from 'lucide-react';
+import DirectoryFile from './DirectoryFile';
 type Context = {
   state?: any;
   dispatch?: any;
@@ -34,41 +35,7 @@ const FileOrDirectory = ({ file, onVideoSelect, depth,selectedVideo, VIDEOLIST }
 
   if (file.kind === 'file') {
     return (
-      <li className={`tranparent flex justify-between items-center w-full ${ (file.name == selectedVideo?.name) ? "bg-slate-300":""  }  hover:bg-slate-200     `} style={{marginLeft:`${depth*1}px`}}>
-
-      {
-        !!VIDEOLIST?.length && VIDEOLIST.map((video: any) => {
-           if(video.name == file.name) {
-            return (
-            <button
-
-            key={video.name}
-              className="text-left w-full text-gray-700 hover:text-gray-900 focus:outline-none py-2 px-4 rounded transition-colors duration-200 flex items-center gap-2 font-poppins text-[14px]"
-              onClick={() => onVideoSelect(video.url)}
-            >
-            {
-              !!VIDEOLIST?.length && VIDEOLIST.map((video: any) => {
-                 if(video.name == file.name && video.completion == "Yes") {
-                   return <BadgeCheck key={video.name} className='w-4 h-4'  color='#0284c7' />
-    
-                 }else{
-                  
-                 }
-              })
-    
-            }
-              <FileVideo color='red' className='w-4 h-4' />
-             {file?.name?.length > 20 ? file.name.slice(0, 20) + '...' : file.name}
-            </button>
-            )
-    
-    
-           }
-        })
-      }
-
-
-      </li>
+        <DirectoryFile file={file} onVideoSelect={onVideoSelect} depth={depth} selectedVideo={selectedVideo} VIDEOLIST={VIDEOLIST} />
     );
   }
   console.log(file)
