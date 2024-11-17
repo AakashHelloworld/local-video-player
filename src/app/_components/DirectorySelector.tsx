@@ -12,14 +12,29 @@ type Context = {
 };
 const videoExtensions = ['.mp4', '.avi', '.mkv', '.mov', '.flv', 'webm'];
 
+
+function naturalSort(a: string, b: string): number {
+  return a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' });
+}
+
+
 const DirectorySelector = ({theme}: any) => {
   const router = useRouter();
   const { dispatch }: Context = useGlobalContext();
   const [loading, setLoading] = useState(false);
 
   const collectFiles = async (directory: FileSystemDirectoryHandle, videosList: Array<any> = [], subtitles: Array<any> = []) => {
-    const files: Array<any> = [];
+    const entries: Array<any> = [];
+  
     for await (const entry of directory.values()) {
+      entries.push(entry);
+    }
+  
+    // Sort entries naturally by name
+    entries.sort((a, b) => naturalSort(a.name, b.name));
+  
+    const files: Array<any> = [];
+    for (const entry of entries) {
       if (entry.kind === 'file' && videoExtensions.some(ext => entry.name.endsWith(ext))) {
         const fileHandle = entry as FileSystemFileHandle;
         const file = await fileHandle.getFile();
@@ -31,11 +46,9 @@ const DirectorySelector = ({theme}: any) => {
         const fileHandle = entry as FileSystemFileHandle;
         const file = await fileHandle.getFile();
         const fileContent = await file.text();
-        console.log(fileContent)
-
         let vttContent = 'WEBVTT\n\n' + fileContent
         .replace(/\r/g, '')
-        .replace(/(\d+:\d+:\d+),(\d+)/g, (_ : string, time : string, ms : string) => {
+        .replace(/(\d+:\d+:\d+),(\d+)/g, (_ : string, time: string, ms: string) => {
           return `${time}.${ms.padEnd(3, '0')}`;
         })
         .replace(/(\d+)\n/g, '$1\n');
@@ -51,9 +64,10 @@ const DirectorySelector = ({theme}: any) => {
         files.push({ name: subdirectoryHandle.name, kind: 'directory', files: subdirectoryFiles });
       }
     }
+  
     return files;
   };
-
+  
 
   const regenerateURL = async ({ directory, jsonData }: any) => {
     for await (const entry of directory.values()) {
