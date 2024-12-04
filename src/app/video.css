@@ -10,7 +10,10 @@
   margin: 0 auto;
   background: #1c1f2b;
   text-align: center;
+  padding: .5rem;
   position: relative;
+  background: #1c1f2b;
+  padding: 2 rem;
   border-radius: 10px;
 }
 
@@ -31,6 +34,7 @@
   transform: translate(-50%, -50%);
   z-index: -1;
   padding: 10px;
+  border-radius: 10px;
   background-image: conic-gradient(from var(--angle), transparent 90%, #ffffff);
   animation: spin 5s linear infinite;
 }
@@ -40,6 +44,9 @@
   opacity: 0.5;
 }
 
+
+
+  
 @keyframes spin {
   from {
     --angle: 0deg;
