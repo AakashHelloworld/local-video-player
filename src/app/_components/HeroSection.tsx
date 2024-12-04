@@ -44,25 +44,11 @@ const HeroSection = () => {
                         <Button onClick={() => setModal(true)} className="flex items-center justify-center gap-2" variant={"outline"}>Choose Directory 
                         <CircleArrowRight className="w-4 h-4" />
                         </Button>
-                    {/* <Link href="/theme">
-                        <Button className="flex items-center justify-center gap-2 shadow-sky-100">
-                            Explore theme <CircleArrowRight className="w-4 h-4" />
-                        </Button>
-                    </Link> */}
                 </motion.div>
-                <div className="card h-[500px]   w-[90%] sm:w-[850px]">
-                    {/* <Video src= className='self-center w-[100%] h-[100%]' accentColor="#263444" /> */}
+                <div className="card h-[500px] w-[90%] sm:w-[850px]">
                         <ReactPlayer url="https://www.youtube.com/watch?v=N_ZxcisYYrI" width="100%" height="100%" />
                 </div>
-                {/* <div className="mt-4">
-                    <p className="text-white text-center text-opacity-70 mb-4">Supported Browsers:</p>
-                <div className="flex gap-4 brightness-50">
-                    <div><Image src="/Images/chrome.png" alt="theme" width={40} height={40} /></div>
-                    <div><Image src="/Images/firefox.png" alt="theme" width={40} height={40} /></div>
-                    <div><Image src="/Images/edge.png" alt="theme" width={40} height={40} /></div>
-                    <div><Image src="/Images/brave.png" alt="theme" width={40} height={40} /></div>
-                </div>
-                </div> */}
+
             </div>
 
             {
