@@ -24,7 +24,7 @@ export default function Feature() {
           >
             The platform offers a range of features that make it easy for users to enjoy their local videos.
           </motion.p>
-        </div>
+        </div> 
 
         <div className="flex flex-col gap-3 sm:grid sm:grid-cols-10 sm:grid-rows-6 sm:gap-5 lg:h-[50rem] xl:h-[60rem] lg:w-[70rem] xl:w-[80rem] mt-2 sm:mt-8">
           {/* Feature: Select Theme */}
