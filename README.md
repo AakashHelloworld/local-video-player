@@ -1,2 +1,1 @@
-![image](https://github.com/AakashHelloworld/local-video-player/assets/94972492/b989f1fb-a6da-4945-b1c9-3031217e075f)
-
+![image](https://github.com/user-attachments/assets/9a0601b8-72d4-4983-911c-cf0302c33296)
