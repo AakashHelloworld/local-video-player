@@ -1,4 +1,5 @@
 "use client"
+import dynamic from 'next/dynamic';
 import { motion } from "framer-motion"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
@@ -6,16 +7,18 @@ import { CircleArrowRight } from "lucide-react"
 import Video from "next-video";
 import "../video.css"
 import Image from "next/image"
-import ReactPlayer from 'react-player';
 import { useState } from "react";
 import Modal from "@/components/ui/Modal";
 import DirectorySelector from "../_components/DirectorySelector";
+
+
+const ReactPlayer = dynamic(() => import('react-player'), { ssr: false });
 
 const HeroSection = () => {
     const [modal, setModal] = useState(false);
 
     return (
-        <div>
+        <section className='w-full'>
             <div className='flex flex-col w-full justify-center items-center mt-[4rem]'>
                 <motion.h1 
                     initial={{ opacity: 0, y: 100 }} 
@@ -45,7 +48,7 @@ const HeroSection = () => {
                         <CircleArrowRight className="w-4 h-4" />
                         </Button>
                 </motion.div>
-                <div className="card h-[500px] w-[300px] sm:w-[600px] md:w-[700px] lg:w-[850px]">
+                <div className="card h-[500px] w-[90%] sm:w-[600px] md:w-[700px] lg:w-[850px]">
                         <ReactPlayer url="https://www.youtube.com/watch?v=N_ZxcisYYrI" width="100%" height="100%" />
                 </div>
 
@@ -73,7 +76,7 @@ const HeroSection = () => {
                 </div>
             </Modal>
             }
-        </div>
+        </section>
     )
 }
 

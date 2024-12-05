@@ -30,7 +30,7 @@ const Navbar = () => {
   ]
 
     return (
-        <div className='min-h-[80px] w-full flex mx-auto items-center justify-center sm:justify-between px-4 pt-[2rem] '>
+        <nav className='min-h-[80px] w-full flex mx-auto items-center justify-center sm:justify-between px-4 pt-[2rem] '>
         <div className='hidden sm:block'>
           <Link href="/" >
           <Image src="/Images/logo.svg" alt="Local-video" width={160} height={40} />
@@ -92,7 +92,7 @@ const Navbar = () => {
         </div>
       </SheetContent>
     </Sheet> */}
-      </div>
+      </nav>
     )
 }
 

@@ -25,23 +25,21 @@ export default function Future() {
     ]
     return (  
     
-    <div className="flex justify-center mt-[5rem] sm:mt-[10rem] px-4">
-      <div className="flex flex-col w-full max-w-[90%] sm:max-w-[80rem] rounded p-4 justify-center items-start">
-        
-        <div className="mb-8">
+      <section className="flex justify-center w-[90%] sm:w-[80%] mt-[5rem] sm:mt-[10rem] px-4 lg:px-8">
+      <div className="flex flex-col w-full sm:w-full p-4 rounded justify-center items-start">
+              <div className="mb-8">
           <motion.h1
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-[1.8rem] sm:text-[4rem] text-white font-bebas_Neue"
-          >
+            className="text-[1.8rem] sm:text-[3rem] lg:text-[4rem] text-white font-bebas_Neue"          >
             FUTURE OF <span className="text-[#818cf8] capitalize uppercase">Video Explore</span>
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.5 }}
-            className="text-white text-[12px] sm:text-[16px] font-poppins text-opacity-50"
+            className="text-white text-[12px] sm:text-[16px] lg:text-[18px] font-poppins text-opacity-50"
           >
 We are committed to enhancing Video Explore by new themes, a desktop app, and continuously improving your video management experience.
 </motion.p>
@@ -62,6 +60,6 @@ We are committed to enhancing Video Explore by new themes, a desktop app, and co
           ))}
         </div>
       </div>
-    </div>
+    </section>
       )
 }
