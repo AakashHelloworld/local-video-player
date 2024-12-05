@@ -48,7 +48,7 @@ const HeroSection = () => {
                         <CircleArrowRight className="w-4 h-4" />
                         </Button>
                 </motion.div>
-                <div className="card h-[500px] w-[90%] sm:w-[600px] md:w-[700px] lg:w-[850px]">
+                <div className="card bg-[#1c1f2b] p-[2rem] h-[500px] w-[90%] sm:w-[600px] md:w-[700px] lg:w-[850px]">
                         <ReactPlayer url="https://www.youtube.com/watch?v=N_ZxcisYYrI" width="100%" height="100%" />
                 </div>
 

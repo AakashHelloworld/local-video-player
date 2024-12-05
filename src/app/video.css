@@ -8,12 +8,9 @@
 
 .card {
   margin: 0 auto;
-  background: #1c1f2b;
   text-align: center;
   padding: .5rem;
   position: relative;
-  background: #1c1f2b;
-  padding: 2 rem;
   border-radius: 10px;
 }
 
